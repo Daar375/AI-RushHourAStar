@@ -21,11 +21,11 @@ public class Astar {
 
         while(loop) {
             current = opened.get(0);
-            int val = current.getBloqueos() + current.getDistancia();
+            int val = current.getF();
             int valNodo;
             for(int i = 0; i<opened.size(); i++){ //obtenemos la opcion con menor costo
                 nodo = opened.get(i);
-                valNodo = nodo.getBloqueos() + nodo.getDistancia();
+                valNodo = nodo.getF();
                 if(val > valNodo){
                     current = opened.get(i);
                 }
@@ -41,7 +41,7 @@ public class Astar {
                 f = moves.getBloqueos + moves.getDistancia;
                 if(opened.contains(moves)){
                     openNode = opened.get(moves);
-                    if(true){ //cambiar a if openNode tiene mayor costo
+                    if(openedNode.getF() < moves.getF()){ 
                         opened.remove(openNode);
                         opened.add(moves);
                     }
