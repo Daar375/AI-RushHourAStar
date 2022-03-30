@@ -166,15 +166,19 @@ private Graphics tableGraphics;
            x++;
         }  
         
-        PaintCar(Color.RED,3,3,3,4, true);
+        PaintCar(Color.RED,3,3,2, false);
 
     }
     
     
-    private void PaintCar(Color color, int xStart , int yStart,int xEnd,int yEnd, Boolean horizontal){
+    private void PaintCar(Color color, int xStart , int yStart,int lenght, Boolean horizontal){
            tableGraphics.setColor(color);
-           tableGraphics.fillRect(63+(95*xStart),13+(95*yStart),95,95); 
-           tableGraphics.fillRect(63+(95*xEnd),13+(95*yEnd),95,95);
+           if(horizontal)
+           tableGraphics.fillRect(63+(95*xStart),13+(95*yStart),95*(lenght),95); 
+           else 
+           tableGraphics.fillRect(63+(95*xStart),13+(95*yStart),95,95*(lenght)); 
+
+           //tableGraphics.fillRect(63+(95*xEnd),13+(95*yEnd),95,95);
 
 
     }
