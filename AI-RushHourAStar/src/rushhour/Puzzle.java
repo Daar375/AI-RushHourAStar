@@ -4,11 +4,13 @@
  */
 package rushhour;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Jose Rivera
  */
-public class puzzle {    
+public class Puzzle {    
     
     private String nombre;
     //private Node nodoInit;
@@ -16,27 +18,15 @@ public class puzzle {
     private Integer contBusqueda;
     
     private Integer numVehiculos;
-    private Integer posicionFija[];
-    private Integer tamañoVehiculo[];
-    private String orientacionVehiculo[];
-    
+    private Vehicle Vehiculos[];
+
     private Integer tamañoTablero;
     
     public Integer getNumVehiculos() {
         return numVehiculos;
     }
     
-    public Integer getposicionFija(int posicion) {
-        return posicionFija[posicion];
-    }
-    
-    public Integer getTamañoVehiculo(int tamaño) {
-        return tamañoVehiculo[tamaño];
-    }
-    
-    public String getOrientacionVehiculo(int orientacion) {
-        return orientacionVehiculo[orientacion];
-    }
+
     
     public Integer getContBusqueda() {
         return contBusqueda;
@@ -60,6 +50,15 @@ public class puzzle {
         return tamañoTablero;
     }
     
+    public ArrayList<Puzzle>  posibleMoves(){
+        return null;
+        
+    }
+    
+    public boolean isSolved(){
+        return false;
+        
+    }
     /*
     public Node getNodoInit() {
         return nodoInit;

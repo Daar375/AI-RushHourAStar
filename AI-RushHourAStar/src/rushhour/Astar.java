@@ -1,19 +1,23 @@
+
+import java.util.ArrayList;
+import rushhour.Puzzle;
+
 //import puzzle
 
 public class Astar {
     
-    public List <Puzzle> opened;
-    public List <Puzzle> closed;
+    public ArrayList <Puzzle> opened;
+    public ArrayList <Puzzle> closed;
     
     public Astar(){
-        opened = new arraylist<Puzzle>();
-        closed = new arraylist<Puzzle>();
+        opened = new ArrayList<Puzzle>();
+        closed = new ArrayList<Puzzle>();
     }
 
     //g: numero de carros bloqueando
     //h: distancia hacia el objetivo 
-    public heuristica(Puzzle puzzle){
-        bool loop = true;
+     public ArrayList<Puzzle>  heuristica(Puzzle puzzle){
+        Boolean loop = true;
         int bloqueos;
         Puzzle current;
         Puzzle nodo;
@@ -36,12 +40,10 @@ public class Astar {
             if(current.isSolved()){
                 return closed;
             }
-            int f;
             for (Puzzle moves : current.posibleMoves()){
-                f = moves.getBloqueos + moves.getDistancia;
                 if(opened.contains(moves)){
-                    openNode = opened.get(moves);
-                    if(openedNode.getF() < moves.getF()){ 
+                    Puzzle openNode = comparePuzzles (opened,moves ) ;
+                    if(openNode.getF() < moves.getF()){ 
                         opened.remove(openNode);
                         opened.add(moves);
                     }
@@ -49,14 +51,18 @@ public class Astar {
                     opened.add(moves);
                 }
             }
-            
-
-
 
         }
+        return null;
 
 
 
         
+    }
+     
+     
+     private Puzzle comparePuzzles(ArrayList<Puzzle> list, Puzzle find ){
+        return null;
+         
     }
 }
