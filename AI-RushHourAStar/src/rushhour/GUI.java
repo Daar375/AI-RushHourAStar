@@ -17,7 +17,7 @@ import javax.swing.JFileChooser;
  * @author Daar375
  */
 public class GUI extends javax.swing.JFrame {
-
+private Graphics tableGraphics;
     /**
      * Creates new form GUI
      */
@@ -135,19 +135,20 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitButtonActionPerformed
 
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
-        DrawGame(gamePanel.getGraphics());
+        tableGraphics = gamePanel.getGraphics();
+        DrawGame();
         
       
     }//GEN-LAST:event_StartButtonActionPerformed
 
-    private void DrawGame(Graphics g){
+    private void DrawGame(){
         
         int y = 0;
         int x = 0;
         while(x !=6){
            while(y !=6){
-            g.setColor(Color.DARK_GRAY);
-            g.fillRect(65+(95*x),15+(95*y),90,90);  
+            tableGraphics.setColor(Color.DARK_GRAY);
+            tableGraphics.fillRect(65+(95*x),15+(95*y),90,90);  
             y++;
             } 
            y = 0;
@@ -157,23 +158,23 @@ public class GUI extends javax.swing.JFrame {
         x = 0;
         while(x !=6){
            while(y !=6){
-            g.setColor(Color.gray);
-            g.fillRect(70+(95*x),20+(95*y),80,80);  
+            tableGraphics.setColor(Color.gray);
+            tableGraphics.fillRect(70+(95*x),20+(95*y),80,80);  
             y++;
             } 
            y = 0;
            x++;
         }  
         
-        PaintCar(g,Color.RED,3,3,3,4);
+        PaintCar(Color.RED,3,3,3,4);
 
     }
     
     
-    private void PaintCar(Graphics g,Color color, int xStart , int yStart,int xEnd,int yEnd){
-           g.setColor(color);
-           g.fillRect(63+(95*xStart),13+(95*yStart),95,95); 
-           g.fillRect(63+(95*xEnd),13+(95*yEnd),95,95);
+    private void PaintCar(Color color, int xStart , int yStart,int xEnd,int yEnd){
+           tableGraphics.setColor(color);
+           tableGraphics.fillRect(63+(95*xStart),13+(95*yStart),95,95); 
+           tableGraphics.fillRect(63+(95*xEnd),13+(95*yEnd),95,95);
 
 
     }
