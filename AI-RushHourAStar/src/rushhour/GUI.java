@@ -143,11 +143,28 @@ private Graphics tableGraphics;
 
     private void DrawGame(){
         
+        
+
+
         int y = 0;
         int x = 0;
+        
+        while (y!=6){
+           tableGraphics.setColor(Color.DARK_GRAY);
+
+            if(y==2){
+              tableGraphics.fillRect(63,12+(95*y),665,97);  
+
+            }else{
+                tableGraphics.fillRect(63,12+(95*y),660-90,95);  
+
+            }
+            y++;
+        }
+        y = 0;
         while(x !=6){
            while(y !=6){
-            tableGraphics.setColor(Color.DARK_GRAY);
+            tableGraphics.setColor(Color.gray);
             tableGraphics.fillRect(65+(95*x),15+(95*y),90,90);  
             y++;
             } 
@@ -158,7 +175,7 @@ private Graphics tableGraphics;
         x = 0;
         while(x !=6){
            while(y !=6){
-            tableGraphics.setColor(Color.gray);
+            tableGraphics.setColor(Color.lightGray);
             tableGraphics.fillRect(70+(95*x),20+(95*y),80,80);  
             y++;
             } 
@@ -166,7 +183,14 @@ private Graphics tableGraphics;
            x++;
         }  
         
-        PaintCar(Color.RED,3,3,2, false);
+        tableGraphics.setColor(Color.gray);
+
+        tableGraphics.fillRect(65+(95*6),15+(95*2),90,90);  
+        tableGraphics.setColor(Color.green);
+
+        tableGraphics.fillRect(70+(95*6),20+(95*2),80,80);  
+
+        PaintCar(Color.RED,3,3,2, true);
 
     }
     
@@ -174,9 +198,9 @@ private Graphics tableGraphics;
     private void PaintCar(Color color, int xStart , int yStart,int lenght, Boolean horizontal){
            tableGraphics.setColor(color);
            if(horizontal)
-           tableGraphics.fillRect(63+(95*xStart),13+(95*yStart),95*(lenght),95); 
+           tableGraphics.fillRect(64+(95*xStart),14+(95*yStart),93*(lenght),93); 
            else 
-           tableGraphics.fillRect(63+(95*xStart),13+(95*yStart),95,95*(lenght)); 
+           tableGraphics.fillRect(64+(95*xStart),14+(95*yStart),93,93*(lenght)); 
 
            //tableGraphics.fillRect(63+(95*xEnd),13+(95*yEnd),95,95);
 
