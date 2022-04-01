@@ -29,6 +29,11 @@ public class Puzzle {
 
 
     // MÉTODOS --------------------------------------------------------------------
+    public Puzzle(){
+        //constructor
+    }
+    
+    
     public Integer getNumVehiculos() {
         return numVehiculos;
     }
@@ -65,6 +70,7 @@ public class Puzzle {
         
     }
 
+
     public boolean crashCars(int x, int y) {
 		for(Vehicle car : cars){
 			if(car.isHorizontal()){
@@ -82,6 +88,41 @@ public class Puzzle {
 		}
 		return false;
 	}
+
+    
+    public int getF(){ //carros bloqueando + distancia del objetivo al destino
+        return 0;
+    }
+    
+    public Vehicle getObjectiveCar(){
+		return cars.get(0);
+    }    
+    
+    public boolean canMoveDown(Vehicle car) {
+		if(car.posX + car.size < tamañoTablero && !crashCars(car.posX+car.size, car.posY))
+			return true;
+		return false;
+	}
+	
+	public boolean canMoveUp(Vehicle car) {
+		if(car.posX > 0 && !crashCars(car.posX-1, car.posY))
+			return true;
+		return false;
+	}
+	
+	public boolean canMoveRight(Vehicle car) {
+		if(car.posY + car.size < tamañoTablero && !crashCars(car.posX, car.posY+car.size))
+			return true;
+		return false;
+	}
+	
+	public boolean canMoveLeft(Vehicle car) {
+		if(car.posY > 0 && !crashCars(car.posX, car.posY-1))
+			return true;
+		return false;
+	}    
+    
+
     /*
     public Node getNodoInit() {
         return nodoInit;

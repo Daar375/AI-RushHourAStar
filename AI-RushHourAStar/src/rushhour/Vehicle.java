@@ -1,8 +1,14 @@
 package rushhour;
 public class Vehicle {
     private String orientation;
+
     public String type;
-    public int size, posX, posY;
+
+
+    public int size;
+    public int posX;
+    public int posY;
+
 
     public Vehicle(String type, String orientation, int size, int posX, int posY) {
         this.type = type;
