@@ -1,3 +1,4 @@
+package rushhour;
 
 import java.util.ArrayList;
 import rushhour.Puzzle;
