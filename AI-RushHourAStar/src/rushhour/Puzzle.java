@@ -66,8 +66,11 @@ public class Puzzle {
     }
     
     public boolean isSolved(){
+        if (getObjectiveCar().posX == tamañoTablero || getObjectiveCar().posX == -1 ||
+            getObjectiveCar().posY == tamañoTablero || getObjectiveCar().posY == -1){
+                return true;
+            }
         return false;
-        
     }
 
 
