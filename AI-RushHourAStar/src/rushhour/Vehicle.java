@@ -1,24 +1,24 @@
 package rushhour;
 public class Vehicle {
-    private String type;
+    private String orientation;
     private int size;
     private int posX;
     private int posY;
 
-    public Vehicle(String type, int size, int posX, int posY) {
-        this.type = type;
+    public Vehicle(String orientation, int size, int posX, int posY) {
+        this.orientation = orientation;
         this.size = size;
         this.posX = posX;
         this.posY = posY;
     }
 
-    public String getType() {
-        return this.type;
-    }
+    public boolean isHorizontal() {
+		return orientation.equals("h");
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
+    public boolean isVertical() {
+		return orientation.equals("v");
+	}
 
     public int getSize() {
         return this.size;
@@ -28,21 +28,22 @@ public class Vehicle {
         this.size = size;
     }
 
-    public int getPosX() {
-        return this.posX;
-    }
+    public void moveDown() {
+		this.posX ++;
+	}
 
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
+	public void moveUp() {
+		this.posX --;
+	}
 
-    public int getPosY() {
-        return this.posY;
-    }
+	public void moveRight() {
+		this.posY ++;
+	}
 
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
+	public void moveLeft() {
+		this.posY --;
+	}
+	
 
 }
 
