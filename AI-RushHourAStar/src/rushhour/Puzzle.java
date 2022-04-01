@@ -63,6 +63,56 @@ public class Puzzle {
     public ArrayList<Puzzle>  posibleMoves(){
         return null;
         
+        /*
+        public ArrayList<Puzzle> posibleMoves(){
+		ArrayList<Puzzle> posibleMoves = new ArrayList<>();
+                cars = new LinkedList<Vehicle>;
+		for (int i = 0; i < cars.size(); i++) {
+			Vehicle car = cars.get(i);
+			if(car.isVertical()){
+				LinkedList<Vehicle> newcars = cloneCars(cars);
+				Vehicle newcar = newcars.get(i);
+				while(puzzle.canMoveDown(newcar)){
+					newcar.moveDown();
+					neighbors.add(new Puzzle(this.puzzle.tamañoTablero, newcars));
+					newcars = cloneCars(newcars);
+					newcar = newcars.get(i);
+				}
+				newcars = cloneCars(cars);
+				newcar = newcars.get(i);
+				while(puzzle.canMoveUp(newcar)){
+					newcar.moveUp();
+					neighbors.add(new Puzzle(this.puzzle.tamañoTablero, newcars));
+					newcars = cloneCars(newcars);
+					newcar = newcars.get(i);
+				}
+			}
+			else if(car.isHorizontal()){
+				LinkedList<Car> newcars = cloneCars(cars);
+				Car newcar = newcars.get(i);
+				while(puzzle.canMoveRight(newcar)){
+					newcar.moveRight();
+					neighbors.add(new Puzzle(this.puzzle.gridSize, newcars));
+					newcars = cloneCars(newcars);
+					newcar = newcars.get(i);
+				}
+				newcars = cloneCars(cars);
+				newcar = newcars.get(i);
+				while(puzzle.canMoveLeft(newcar)){
+					newcar.moveLeft();
+					neighbors.(new Puzzle(this.puzzle.gridSize, newcars));
+					newcars = cloneCars(newcars);
+					newcar = newcars.get(i);
+				}
+			}
+		}
+		
+		return posibleMoves;
+	}
+        
+        
+        */
+        
     }
     
     public boolean isSolved(){
