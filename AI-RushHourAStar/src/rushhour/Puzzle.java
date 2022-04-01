@@ -5,6 +5,7 @@
 package rushhour;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -12,22 +13,26 @@ import java.util.ArrayList;
  */
 public class Puzzle {    
     
+    // VARIABLES ------------------------------------------------------------------
     private String nombre;
     //private Node nodoInit;
     
     private Integer contBusqueda;
     
     private Integer numVehiculos;
-    private Vehicle Vehiculos[];
+    // private Vehicle Vehiculos[]; Revisar
+    LinkedList<Vehicle> cars;
+    Vehicle colisionVehiculo;
 
     private Integer tamañoTablero;
     
+
+
+    // MÉTODOS --------------------------------------------------------------------
     public Integer getNumVehiculos() {
         return numVehiculos;
     }
-    
-
-    
+        
     public Integer getContBusqueda() {
         return contBusqueda;
     }
@@ -59,6 +64,24 @@ public class Puzzle {
         return false;
         
     }
+
+    public boolean crashCars(int x, int y) {
+		for(Vehicle car : cars){
+			if(car.isHorizontal()){
+				if(x == car.posX && y >= car.posY && y < car.posY  + car.size){
+					colisionVehiculo = car;
+					return true;
+				}
+			}
+			else if(car.isVertical()){
+				if(y == car.posY && x >= car.posX && x < car.posX + car.size){
+					colisionVehiculo = car;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
     /*
     public Node getNodoInit() {
         return nodoInit;
