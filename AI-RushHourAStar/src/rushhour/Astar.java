@@ -7,8 +7,8 @@ import rushhour.Puzzle;
 
 public class Astar {
     
-    public ArrayList <Puzzle> opened;
-    public ArrayList <Puzzle> closed;
+    public ArrayList <Puzzle> opened; //evaluando
+    public ArrayList <Puzzle> closed; //evaluados
     
     public Astar(){
         opened = new ArrayList<Puzzle>();
@@ -43,7 +43,7 @@ public class Astar {
             }
             for (Puzzle moves : current.posibleMoves()){
                 if(opened.contains(moves)){
-                    Puzzle openNode = comparePuzzles (opened,moves ) ;
+                    Puzzle openNode = comparePuzzles(opened,moves ) ;
                     if(openNode.getF() < moves.getF()){ 
                         opened.remove(openNode);
                         opened.add(moves);
@@ -63,7 +63,7 @@ public class Astar {
      
      
      private Puzzle comparePuzzles(ArrayList<Puzzle> list, Puzzle find ){
-        return null;
+        return null; //encontrarlo y retornar
          
     }
 }

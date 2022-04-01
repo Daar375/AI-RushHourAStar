@@ -21,9 +21,9 @@ public class Puzzle {
     
     private Integer numVehiculos;
     // private Vehicle Vehiculos[]; Revisar
-    LinkedList<Vehicle> cars;
-    Vehicle colisionVehiculo;
-
+    public LinkedList<Vehicle> cars;
+    public Vehicle colisionVehiculo;
+    private int destino; //cordenada final
     private Integer tamañoTablero;
     
 
@@ -93,8 +93,45 @@ public class Puzzle {
 	}
 
     
-    public int getF(){ //carros bloqueando + distancia del objetivo al destino
-        return 0;
+    public int getF(){ //costo
+        Vehicle carro = getObjectiveCar();
+        int count = 0; //distancia del objetivo al destino
+        int carBlock = 0; //carros bloqueando        
+           
+        for(int i = 0; i < 5; i++){
+            if (carro.isHorizontal()){
+                if(destino == 6 && carro.posX < 6){
+                    if (i > 1 && crashCars(carro.posX, i)){
+                        carBlock++;
+                    }
+                    carro.moveRight();
+                    count++;
+
+                } else{
+                    if (i < 4 && crashCars(carro.posX, i)){
+                        carBlock++;
+                    }                    
+                    carro.moveLeft();
+                    count++;
+                }
+            }
+            if (carro.isVertical()){
+                if(destino == 6 && carro.posY < 6){
+                    if (i > 1 && crashCars(carro.posY, i)){
+                        carBlock++;
+                    }                    
+                    carro.moveRight();
+                    count++;
+                } else{
+                    if (i < 4 && crashCars(carro.posY, i)){
+                        carBlock++;
+                    }                      
+                    carro.moveLeft();
+                    count++;
+                }                
+            }
+        }
+        return carBlock + count;
     }
     
     public Vehicle getObjectiveCar(){
