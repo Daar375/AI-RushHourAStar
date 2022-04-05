@@ -1,6 +1,8 @@
 package rushhour;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import rushhour.Puzzle;
 
 //import puzzle
@@ -63,6 +65,11 @@ public class Astar {
      
      
      private Puzzle comparePuzzles(ArrayList<Puzzle> list, Puzzle find ){
+            for (Puzzle puzzle : list){
+                  if(Arrays.deepEquals(puzzle.getMatrix(), find.getMatrix())){
+                      return puzzle;
+                  }
+            }
         return null; //encontrarlo y retornar
          
     }

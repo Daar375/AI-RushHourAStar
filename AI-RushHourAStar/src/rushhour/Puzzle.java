@@ -25,7 +25,7 @@ public class Puzzle {
     public Vehicle colisionVehiculo;
     private int destino; //cordenada final
     private Integer tamañoTablero;
-    
+    private int[][] matrix;
 
 
     // MÉTODOS --------------------------------------------------------------------
@@ -37,7 +37,13 @@ public class Puzzle {
     public Integer getNumVehiculos() {
         return numVehiculos;
     }
-        
+    public int[][] getMatrix() {
+        if(matrix == null){
+            matrix= toMatrix();
+        }
+        return matrix;
+    }
+       
     public Integer getContBusqueda() {
         return contBusqueda;
     }
@@ -212,7 +218,27 @@ public class Puzzle {
 		return false;
 	}    
     
-
+        private int[][] toMatrix(){
+            int[][] res = new int[6][6];
+            int carNumber = 1;
+            for(Vehicle car: cars){
+                res[car.posX][car.posY] = 1;
+                int tempLenght  = car.size-1; 
+                if(car.isHorizontal()){
+                    while(tempLenght !=0){
+                       res[car.posX+tempLenght][car.posY] = 1;
+                    tempLenght--;
+                    }
+                }else{
+                    while(tempLenght !=0){
+                       res[car.posX][car.posY+tempLenght] = 1;
+                    tempLenght--;
+                    }
+                }
+                carNumber++;
+            }
+        return res;
+        }
     /*
     public Node getNodoInit() {
         return nodoInit;
