@@ -34,6 +34,7 @@ public class Puzzle {
         super();
         this.tamañoTablero = pTamañoTablero;
         this.cars = pNuevosVehiculos;
+        numVehiculos= pNuevosVehiculos.size(); 
     }
 
     // MÉTODOS --------------------------------------------------------------------
@@ -114,7 +115,6 @@ public class Puzzle {
                 }
             }
         }
-
         return posibleMoves;
     }
 
@@ -126,15 +126,15 @@ public class Puzzle {
         return false;
     }
 
-    public boolean crashCars(int x, int y) {
+    public boolean crashCars(int x, int y,Vehicle currentCar) {
         for (Vehicle car : cars) {
             if (car.isHorizontal()) {
-                if (x == car.posX && y >= car.posY && y < car.posY + car.size) {
+                if (currentCar!=car &&x == car.posX && y >= car.posY && y < car.posY + car.size) {
                     colisionVehiculo = car;
                     return true;
                 }
             } else if (car.isVertical()) {
-                if (y == car.posY && x >= car.posX && x < car.posX + car.size) {
+                if (currentCar!=car &&(y == car.posY ||y + currentCar.size-1  == car.posY  ) && x >= car.posX && x < car.posX + car.size) {
                     colisionVehiculo = car;
                     return true;
                 }
@@ -144,21 +144,21 @@ public class Puzzle {
     }
 
     public int getF() { //costo
-        Vehicle carro = getObjectiveCar();
+        Vehicle carro = getObjectiveCar().clone();
         int count = 0; //distancia del objetivo al destino
         int carBlock = 0; //carros bloqueando        
 
         for (int i = 0; i < 5; i++) {
             if (carro.isHorizontal()) {
                 if (destino == 6 && carro.posX < 6) {
-                    if (i > 1 && crashCars(carro.posX, i)) {
+                    if (i > 1 && crashCars(carro.posX, i,carro)) {
                         carBlock++;
                     }
                     carro.moveRight();
                     count++;
 
                 } else {
-                    if (i < 4 && crashCars(carro.posX, i)) {
+                    if (i < 4 && crashCars(carro.posX, i,carro)) {
                         carBlock++;
                     }
                     carro.moveLeft();
@@ -167,13 +167,13 @@ public class Puzzle {
             }
             if (carro.isVertical()) {
                 if (destino == 6 && carro.posY < 6) {
-                    if (i > 1 && crashCars(carro.posY, i)) {
+                    if (i > 1 && crashCars(carro.posY, i,carro)) {
                         carBlock++;
                     }
                     carro.moveRight();
                     count++;
                 } else {
-                    if (i < 4 && crashCars(carro.posY, i)) {
+                    if (i < 4 && crashCars(carro.posY, i,carro)) {
                         carBlock++;
                     }
                     carro.moveLeft();
@@ -189,28 +189,28 @@ public class Puzzle {
     }
 
     public boolean canMoveDown(Vehicle car) {
-        if (car.posX + car.size < tamañoTablero && !crashCars(car.posX + car.size, car.posY)) {
+        if (car.posY + car.size < tamañoTablero && !crashCars(car.posX, car.posY + car.size,car)) {
             return true;
         }
         return false;
     }
 
     public boolean canMoveUp(Vehicle car) {
-        if (car.posX > 0 && !crashCars(car.posX - 1, car.posY)) {
+        if (car.posY > 0 && !crashCars(car.posX, car.posY - 1,car)) {
             return true;
         }
         return false;
     }
 
     public boolean canMoveRight(Vehicle car) {
-        if (car.posY + car.size < tamañoTablero && !crashCars(car.posX, car.posY + car.size)) {
+        if (car.posX + car.size < tamañoTablero && !crashCars(car.posX+ car.size, car.posY,car )) {
             return true;
         }
         return false;
     }
 
     public boolean canMoveLeft(Vehicle car) {
-        if (car.posY > 0 && !crashCars(car.posX, car.posY - 1)) {
+        if (car.posX > 0 && !crashCars(car.posX - 1, car.posY,car)) {
             return true;
         }
         return false;
@@ -256,5 +256,7 @@ public class Puzzle {
      */
     public static void main(String args[]) {
         // TODO code application logic here
+        
+
     }
 }

@@ -19,15 +19,18 @@ public class Astar {
 
     //g: numero de carros bloqueando
     //h: distancia hacia el objetivo 
-     public ArrayList<Puzzle>  heuristica(Puzzle puzzle){
+     public ArrayList<Puzzle>  heuristica(Puzzle puzzle,GUI GUI){
         Boolean loop = true;
         int bloqueos;
         Puzzle current;
         Puzzle nodo;
         opened.add(puzzle);
-
+        
         while(loop) {
+
             current = opened.get(0);
+            GUI.DrawGame(current);
+
             int val = current.getF();
             int valNodo;
             for(int i = 0; i<opened.size(); i++){ //obtenemos la opcion con menor costo

@@ -35,19 +35,19 @@ public class Vehicle {
     }
 
     public void moveDown() {
-        this.posX++;
-    }
-
-    public void moveUp() {
-        this.posX--;
-    }
-
-    public void moveRight() {
         this.posY++;
     }
 
-    public void moveLeft() {
+    public void moveUp() {
         this.posY--;
+    }
+
+    public void moveRight() {
+        this.posX++;
+    }
+
+    public void moveLeft() {
+        this.posX--;
     }
 
     public Vehicle clone() {
