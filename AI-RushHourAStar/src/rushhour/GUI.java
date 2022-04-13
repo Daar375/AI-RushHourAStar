@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
 import javax.swing.JFileChooser;
 
 /**
@@ -136,12 +137,19 @@ private Graphics tableGraphics;
 
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
         tableGraphics = gamePanel.getGraphics();
-        DrawGame();
+        Vehicle player = new Vehicle("player","h",2,2,2);
+        Vehicle car = new Vehicle("a","v",2,5,2);
+        LinkedList a = new LinkedList();  
+        a.add(player);
+        a.add(car);
+        Puzzle initialPuzzle = new Puzzle(6,a);
+        Astar game = new Astar();
+        game.heuristica(initialPuzzle,this);
         
       
     }//GEN-LAST:event_StartButtonActionPerformed
 
-    private void DrawGame(){
+    public void DrawGame(Puzzle puzzle){
         
         
 
@@ -189,12 +197,21 @@ private Graphics tableGraphics;
         tableGraphics.setColor(Color.green);
 
         tableGraphics.fillRect(70+(95*6),20+(95*2),80,80);  
+        
+        
+        for( Vehicle car : puzzle.cars){
+            if(car.type.equals("player")){
+               PaintCar(Color.RED,car.posX,car.posY,car.size,car.isHorizontal());
 
-        PaintCar(Color.RED,3,3,2, true);
+            }else
+            PaintCar(Color.BLUE,car.posX,car.posY,car.size,car.isHorizontal());
+        }
+        //PaintCar(Color.RED,3,3,2, true);
+        //PaintCar(Color.RED,3,3,2, true);
 
     }
     
-    
+
     private void PaintCar(Color color, int xStart , int yStart,int lenght, Boolean horizontal){
            tableGraphics.setColor(color);
            if(horizontal)
@@ -233,12 +250,16 @@ private Graphics tableGraphics;
         }
         //</editor-fold>
 
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new GUI().setVisible(true);
+
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
