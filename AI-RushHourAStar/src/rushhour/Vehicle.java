@@ -53,5 +53,8 @@ public class Vehicle {
     public Vehicle clone() {
         return new Vehicle(this.type, this.orientation, this.size, this.posX, this.posY);
     }
-
+    
+    public boolean equals(Vehicle car){
+        return this.posX == car.posX && this.posY == car.posY && this.size == car.size && this.type.equals(car.type);
+    }
 }

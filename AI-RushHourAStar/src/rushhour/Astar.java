@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import rushhour.Puzzle;
 
-//import puzzle
 
 public class Astar {
     
