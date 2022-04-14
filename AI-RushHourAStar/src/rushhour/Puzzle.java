@@ -25,14 +25,22 @@ public class Puzzle {
     public LinkedList<Vehicle> cars;
     public int score;
     public Vehicle colisionVehiculo;
+    
+    
+    public int exitX;
+    public int exitY;
+
     private int destino; //cordenada final
     private Integer tamañoTablero;
     private int[][] matrix;
     private boolean alreadyScored = false;
     
     // CONSTRUCTOR ----------------------------------------------------------------
-    public Puzzle(int pTamañoTablero, LinkedList<Vehicle> pNuevosVehiculos) {
+    public Puzzle(int pTamañoTablero, LinkedList<Vehicle> pNuevosVehiculos,int winX, int winY) {
         super();
+        exitX= winX;
+        exitY= winY;
+
         this.tamañoTablero = pTamañoTablero;
         this.cars = pNuevosVehiculos;
         numVehiculos= pNuevosVehiculos.size(); 
@@ -85,7 +93,7 @@ public class Puzzle {
                 Vehicle nuevoVehiculo = nuevosVehiculos.get(i);
                 while (canMoveDown(nuevoVehiculo)) {
                     nuevoVehiculo.moveDown();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
                     nuevoVehiculo = nuevosVehiculos.get(i);
                 }
@@ -93,7 +101,7 @@ public class Puzzle {
                 nuevoVehiculo = nuevosVehiculos.get(i);
                 while (canMoveUp(nuevoVehiculo)) {
                     nuevoVehiculo.moveUp();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
                     nuevoVehiculo = nuevosVehiculos.get(i);
                 }
@@ -102,7 +110,7 @@ public class Puzzle {
                 Vehicle nuevoVehiculo = nuevosVehiculos.get(i);
                 while (canMoveRight(nuevoVehiculo)) {
                     nuevoVehiculo.moveRight();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
                     nuevoVehiculo = nuevosVehiculos.get(i);
                 }
@@ -110,7 +118,7 @@ public class Puzzle {
                 nuevoVehiculo = nuevosVehiculos.get(i);
                 while (canMoveLeft(nuevoVehiculo)) {
                     nuevoVehiculo.moveLeft();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
                     nuevoVehiculo = nuevosVehiculos.get(i);
                 }
@@ -120,10 +128,17 @@ public class Puzzle {
     }
 
     public boolean isSolved() {
-        if (getObjectiveCar().posX == tamañoTablero || getObjectiveCar().posX == -1
-                || getObjectiveCar().posY == tamañoTablero || getObjectiveCar().posY == -1) {
-            return true;
+        if(getObjectiveCar().isHorizontal()){
+            if (getObjectiveCar().posX == exitX || getObjectiveCar().posX+getObjectiveCar().size-1 == exitX) {
+                return true;
         }
+        }else{
+            if ( getObjectiveCar().posY == exitY || getObjectiveCar().posY+getObjectiveCar().size-1== exitY) {
+                return true;
+            }
+        }
+            
+        
         return false;
     }
 
@@ -250,7 +265,6 @@ public class Puzzle {
                 }
                 carNumber++;
             }
-            printMatrix(res);
         return res;
         }
     public void printMatrix(int[][] matrix) {
