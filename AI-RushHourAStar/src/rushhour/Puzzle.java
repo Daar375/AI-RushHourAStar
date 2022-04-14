@@ -47,7 +47,7 @@ public class Puzzle {
     }
     public int[][] getMatrix() {
         if(matrix == null){
-            matrix= toMatrix();
+            matrix = toMatrix();
         }
         return matrix;
     }
@@ -129,12 +129,12 @@ public class Puzzle {
     public boolean crashCars(int x, int y,Vehicle currentCar) {
         for (Vehicle car : cars) {
             if (car.isHorizontal()) {
-                if (currentCar!=car &&x == car.posX && y >= car.posY && y < car.posY + car.size) {
+                if (!currentCar.type.equals(car.type) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y <= car.posY && y + currentCar.size-1 >= car.posY )) {
                     colisionVehiculo = car;
                     return true;
                 }
             } else if (car.isVertical()) {
-                if (currentCar!=car &&(y == car.posY ||y + currentCar.size-1  == car.posY  ) && x >= car.posX && x < car.posX + car.size) {
+                if (!currentCar.type.equals(car.type) &&(y >= car.posY&&y <= car.posY + car.size-1 ) && (x <= car.posX && x + currentCar.size-1 >= car.posX )) {
                     colisionVehiculo = car;
                     return true;
                 }
@@ -189,7 +189,7 @@ public class Puzzle {
     }
 
     public boolean canMoveDown(Vehicle car) {
-        if (car.posY + car.size < tamañoTablero && !crashCars(car.posX, car.posY + car.size,car)) {
+        if (car.posY + car.size < tamañoTablero && !crashCars(car.posX, car.posY + 1,car)) {
             return true;
         }
         return false;
@@ -203,7 +203,7 @@ public class Puzzle {
     }
 
     public boolean canMoveRight(Vehicle car) {
-        if (car.posX + car.size < tamañoTablero && !crashCars(car.posX+ car.size, car.posY,car )) {
+        if (car.posX + car.size < tamañoTablero && !crashCars(car.posX + 1, car.posY,car)) {
             return true;
         }
         return false;
@@ -243,9 +243,26 @@ public class Puzzle {
                 }
                 carNumber++;
             }
+            printMatrix(res);
         return res;
         }
-    
+    public void printMatrix(int[][] matrix) {
+    for (int row = 0; row < matrix.length; row++) {
+        for (int col = 0; col < matrix[row].length; col++) {
+            System.out.printf("%4d", matrix[row][col]);
+        }
+        System.out.println();
+
+
+    }
+            System.out.println();
+
+        System.out.println();        System.out.println();
+
+        System.out.println();        System.out.println();
+
+        System.out.println();
+}
     /*
     public Node getNodoInit() {
         return nodoInit;
