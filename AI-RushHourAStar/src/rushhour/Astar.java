@@ -29,7 +29,6 @@ public class Astar {
         while(loop) {
 
             current = opened.get(0);
-            GUI.DrawGame(current);
 
             int val = current.getF();
             int valNodo;
@@ -42,13 +41,14 @@ public class Astar {
             }
             opened.remove(current);
             closed.add(current);
+            GUI.DrawGame(current);
 
             if(current.isSolved()){
                 return closed;
             }
             for (Puzzle moves : current.posibleMoves()){
-                if(opened.contains(moves)){
-                    Puzzle openNode = comparePuzzles(opened,moves ) ;
+                Puzzle openNode = comparePuzzles(opened,moves ) ;
+                if(openNode != null){
                     if(openNode.getF() < moves.getF()){ 
                         opened.remove(openNode);
                         opened.add(moves);
@@ -65,7 +65,7 @@ public class Astar {
 
         
     }
-     
+
      
      private Puzzle comparePuzzles(ArrayList<Puzzle> list, Puzzle find ){
             for (Puzzle puzzle : list){
