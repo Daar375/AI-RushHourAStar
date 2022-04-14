@@ -23,12 +23,13 @@ public class Puzzle {
     // private Vehicle Vehiculos[]; Revisar
 
     public LinkedList<Vehicle> cars;
-
+    public int score;
     public Vehicle colisionVehiculo;
     private int destino; //cordenada final
     private Integer tamañoTablero;
     private int[][] matrix;
-
+    private boolean alreadyScored = false;
+    
     // CONSTRUCTOR ----------------------------------------------------------------
     public Puzzle(int pTamañoTablero, LinkedList<Vehicle> pNuevosVehiculos) {
         super();
@@ -144,6 +145,10 @@ public class Puzzle {
     }
 
     public int getF() { //costo
+        
+        if(alreadyScored){
+            return score;
+        }
         Vehicle carro = getObjectiveCar().clone();
         int count = 0; //distancia del objetivo al destino
         int carBlock = 0; //carros bloqueando        
@@ -181,6 +186,8 @@ public class Puzzle {
                 }
             }
         }
+        alreadyScored = true;
+        score = carBlock+count;
         return carBlock + count;
     }
 
