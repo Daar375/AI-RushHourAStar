@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import rushhour.Puzzle;
 
-//import puzzle
 
 public class Astar {
     
@@ -41,9 +40,9 @@ public class Astar {
             }
             opened.remove(current);
             closed.add(current);
-            GUI.DrawGame(current);
 
             if(current.isSolved()){
+                GUI.DrawGameSequence(closed);
                 return closed;
             }
             for (Puzzle moves : current.posibleMoves()){
@@ -66,7 +65,7 @@ public class Astar {
         
     }
 
-     
+    
      private Puzzle comparePuzzles(ArrayList<Puzzle> list, Puzzle find ){
             for (Puzzle puzzle : list){
                   if(Arrays.deepEquals(puzzle.getMatrix(), find.getMatrix())){

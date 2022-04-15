@@ -23,15 +23,24 @@ public class Puzzle {
     // private Vehicle Vehiculos[]; Revisar
 
     public LinkedList<Vehicle> cars;
-
+    public int score;
     public Vehicle colisionVehiculo;
+    
+    
+    public int exitX;
+    public int exitY;
+
     private int destino; //cordenada final
     private Integer tamañoTablero;
     private int[][] matrix;
-
+    private boolean alreadyScored = false;
+    
     // CONSTRUCTOR ----------------------------------------------------------------
-    public Puzzle(int pTamañoTablero, LinkedList<Vehicle> pNuevosVehiculos) {
+    public Puzzle(int pTamañoTablero, LinkedList<Vehicle> pNuevosVehiculos,int winX, int winY) {
         super();
+        exitX= winX;
+        exitY= winY;
+
         this.tamañoTablero = pTamañoTablero;
         this.cars = pNuevosVehiculos;
         numVehiculos= pNuevosVehiculos.size(); 
@@ -84,7 +93,7 @@ public class Puzzle {
                 Vehicle nuevoVehiculo = nuevosVehiculos.get(i);
                 while (canMoveDown(nuevoVehiculo)) {
                     nuevoVehiculo.moveDown();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
                     nuevoVehiculo = nuevosVehiculos.get(i);
                 }
@@ -92,7 +101,7 @@ public class Puzzle {
                 nuevoVehiculo = nuevosVehiculos.get(i);
                 while (canMoveUp(nuevoVehiculo)) {
                     nuevoVehiculo.moveUp();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
                     nuevoVehiculo = nuevosVehiculos.get(i);
                 }
@@ -101,7 +110,7 @@ public class Puzzle {
                 Vehicle nuevoVehiculo = nuevosVehiculos.get(i);
                 while (canMoveRight(nuevoVehiculo)) {
                     nuevoVehiculo.moveRight();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
                     nuevoVehiculo = nuevosVehiculos.get(i);
                 }
@@ -109,7 +118,7 @@ public class Puzzle {
                 nuevoVehiculo = nuevosVehiculos.get(i);
                 while (canMoveLeft(nuevoVehiculo)) {
                     nuevoVehiculo.moveLeft();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
                     nuevoVehiculo = nuevosVehiculos.get(i);
                 }
@@ -119,22 +128,29 @@ public class Puzzle {
     }
 
     public boolean isSolved() {
-        if (getObjectiveCar().posX == tamañoTablero || getObjectiveCar().posX == -1
-                || getObjectiveCar().posY == tamañoTablero || getObjectiveCar().posY == -1) {
-            return true;
+        if(getObjectiveCar().isHorizontal()){
+            if (getObjectiveCar().posX == exitX || getObjectiveCar().posX+getObjectiveCar().size-1 == exitX) {
+                return true;
         }
+        }else{
+            if ( getObjectiveCar().posY == exitY || getObjectiveCar().posY+getObjectiveCar().size-1== exitY) {
+                return true;
+            }
+        }
+            
+        
         return false;
     }
 
     public boolean crashCars(int x, int y,Vehicle currentCar) {
         for (Vehicle car : cars) {
             if (car.isHorizontal()) {
-                if (!currentCar.type.equals(car.type) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y <= car.posY && y + currentCar.size-1 >= car.posY )) {
+                if (!currentCar.equals(car) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y <= car.posY && y + currentCar.size-1 >= car.posY )) {
                     colisionVehiculo = car;
                     return true;
                 }
             } else if (car.isVertical()) {
-                if (!currentCar.type.equals(car.type) &&(y >= car.posY&&y <= car.posY + car.size-1 ) && (x <= car.posX && x + currentCar.size-1 >= car.posX )) {
+                if (!currentCar.equals(car) &&(y >= car.posY&&y <= car.posY + car.size-1 ) && (x <= car.posX && x + currentCar.size-1 >= car.posX )) {
                     colisionVehiculo = car;
                     return true;
                 }
@@ -144,6 +160,10 @@ public class Puzzle {
     }
 
     public int getF() { //costo
+        
+        if(alreadyScored){
+            return score;
+        }
         Vehicle carro = getObjectiveCar().clone();
         int count = 0; //distancia del objetivo al destino
         int carBlock = 0; //carros bloqueando        
@@ -181,6 +201,8 @@ public class Puzzle {
                 }
             }
         }
+        alreadyScored = true;
+        score = carBlock+count;
         return carBlock + count;
     }
 
@@ -243,7 +265,6 @@ public class Puzzle {
                 }
                 carNumber++;
             }
-            printMatrix(res);
         return res;
         }
     public void printMatrix(int[][] matrix) {

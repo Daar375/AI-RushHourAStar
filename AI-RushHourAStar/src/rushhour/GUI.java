@@ -10,7 +10,12 @@ import java.awt.Graphics;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import static java.lang.Thread.sleep;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 
 /**
@@ -142,13 +147,26 @@ private Graphics tableGraphics;
         LinkedList a = new LinkedList();  
         a.add(player);
         a.add(car);
-        Puzzle initialPuzzle = new Puzzle(6,a);
+        Puzzle initialPuzzle = new Puzzle(6,a,5,2);
+
+        
         Astar game = new Astar();
         game.heuristica(initialPuzzle,this);
         
       
     }//GEN-LAST:event_StartButtonActionPerformed
+    public void DrawGameSequence(ArrayList<Puzzle> squence){
+        for (Puzzle puzzle : squence){
+            try {
+                DrawGame(puzzle);            
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
+
+    }
     public void DrawGame(Puzzle puzzle){
         
         
