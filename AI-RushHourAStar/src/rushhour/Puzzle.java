@@ -155,7 +155,11 @@ public class Puzzle {
         if(alreadyScored){
             return score;
         }
+<<<<<<< HEAD
 
+=======
+        // Puzzle currentPuzzleClone = (Puzzle) tablero.clone();
+>>>>>>> parent of 6d962e4 (Cambios en getF)
         Vehicle carro = getObjectiveCar();//.clone();
         int count = 0; //distancia del objetivo al destino
         int carBlock = 0; //carros bloqueando    
