@@ -155,8 +155,8 @@ public class Puzzle {
         if(alreadyScored){
             return score;
         }
-        
-        Vehicle carro = getObjectiveCar();//.clone();
+        // Puzzle currentPuzzleClone = (Puzzle) tablero.clone();
+        Vehicle carro = getObjectiveCar().clone();
         int count = 0; //distancia del objetivo al destino
         int carBlock = 0; //carros bloqueando    
         
@@ -166,6 +166,8 @@ public class Puzzle {
                 while(carro.posX < exitX){
                     if(!canMoveRight(carro)){
                         carBlock++;
+                        carro.posX++;
+
                     }
                     carro.moveRight();
                 }                
@@ -175,6 +177,7 @@ public class Puzzle {
                 while(carro.posX > exitX){
                     if(!canMoveLeft(carro)){
                         carBlock++;
+                        carro.posX--;
                     }
                     carro.moveLeft();
                 }                
@@ -186,6 +189,7 @@ public class Puzzle {
                 while(carro.posY < exitY){
                     if(!canMoveDown(carro)){
                         carBlock++;
+                        carro.posY++;
                     }
                     carro.moveDown();
                 }                
@@ -195,6 +199,7 @@ public class Puzzle {
                 while(carro.posY > exitY){
                     if(!canMoveUp(carro)){
                         carBlock++;
+                        carro.posY--;
                     }
                     carro.moveUp();
                 }                
@@ -229,19 +234,19 @@ public class Puzzle {
                     if (i > 1 && crashCars(carro.posY, i,carro)) {
                         carBlock++;
                     }
-                    carro.moveRight();
+                    carro.moveDown();
                     count++;
                 } else {
                     if (i < 4 && crashCars(carro.posY, i,carro)) {
                         carBlock++;
                     }
-                    carro.moveLeft();
+                    carro.moveUp();
                     count++;
                 }
             }
         }*/
         alreadyScored = true;
-        score = carBlock + count;
+        // score = carBlock + count;
         return carBlock + count;
     }
 

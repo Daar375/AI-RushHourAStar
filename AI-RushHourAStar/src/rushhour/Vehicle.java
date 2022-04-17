@@ -3,9 +3,7 @@ package rushhour;
 public class Vehicle {
 
     private String orientation;
-
     public String type;
-
     public int size;
     public int posX;
     public int posY;
