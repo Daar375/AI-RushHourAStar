@@ -136,7 +136,7 @@ public class Puzzle {
     public boolean crashCars(int x, int y,Vehicle currentCar) {
         for (Vehicle car : cars) {
             if (car.isHorizontal()) {
-                if (!currentCar.equals(car) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y <= car.posY && y + currentCar.size-1 >= car.posY )) {
+                if (!currentCar.equals(car) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y <= car.posY && y + currentCar.size-1 >= car.posY ) && (car.type!="player")) {
                     colisionVehiculo = car;
                     return true;
                 }
@@ -155,7 +155,7 @@ public class Puzzle {
         if(alreadyScored){
             return score;
         }
-        
+        // Puzzle currentPuzzleClone = (Puzzle) tablero.clone();
         Vehicle carro = getObjectiveCar();//.clone();
         int count = 0; //distancia del objetivo al destino
         int carBlock = 0; //carros bloqueando    
@@ -166,6 +166,8 @@ public class Puzzle {
                 while(carro.posX < exitX){
                     if(!canMoveRight(carro)){
                         carBlock++;
+                        carro.posX++;
+
                     }
                     carro.moveRight();
                 }                
@@ -229,19 +231,19 @@ public class Puzzle {
                     if (i > 1 && crashCars(carro.posY, i,carro)) {
                         carBlock++;
                     }
-                    carro.moveRight();
+                    carro.moveDown();
                     count++;
                 } else {
                     if (i < 4 && crashCars(carro.posY, i,carro)) {
                         carBlock++;
                     }
-                    carro.moveLeft();
+                    carro.moveUp();
                     count++;
                 }
             }
         }*/
         alreadyScored = true;
-        score = carBlock + count;
+        // score = carBlock + count;
         return carBlock + count;
     }
 
