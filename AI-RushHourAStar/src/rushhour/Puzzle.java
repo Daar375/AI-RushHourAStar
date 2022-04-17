@@ -150,9 +150,9 @@ public class Puzzle {
         return false;
     }
 
-    public int getF(Puzzle tablero) { //costo
+    public int getF() { //costo
         
-        if(alreadyScored){
+        if(alreadyScored){ //comentar
             return score;
         }
         // Puzzle currentPuzzleClone = (Puzzle) tablero.clone();
@@ -246,7 +246,7 @@ public class Puzzle {
             }
         }*/
         alreadyScored = true;
-        // score = carBlock + count;
+        score = carBlock + count;
         return carBlock + count;
     }
 
