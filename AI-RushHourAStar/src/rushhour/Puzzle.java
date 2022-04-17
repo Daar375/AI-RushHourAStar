@@ -150,7 +150,7 @@ public class Puzzle {
         return false;
     }
 
-    public int getF(Puzzle tablero) { //costo
+    public int getF() { //costo
         
         if(alreadyScored){
             return score;
@@ -166,6 +166,7 @@ public class Puzzle {
                 while(carro.posX < exitX){
                     if(!canMoveRight(carro)){
                         carBlock++;
+                        carro.posX++;
                     }
                     carro.moveRight();
                 }                
@@ -175,6 +176,7 @@ public class Puzzle {
                 while(carro.posX > exitX){
                     if(!canMoveLeft(carro)){
                         carBlock++;
+                        carro.posX--;
                     }
                     carro.moveLeft();
                 }                
@@ -186,6 +188,7 @@ public class Puzzle {
                 while(carro.posY < exitY){
                     if(!canMoveDown(carro)){
                         carBlock++;
+                        carro.posY++;
                     }
                     carro.moveDown();
                 }                
@@ -195,6 +198,7 @@ public class Puzzle {
                 while(carro.posY > exitY){
                     if(!canMoveUp(carro)){
                         carBlock++;
+                        carro.posY--;
                     }
                     carro.moveUp();
                 }                
