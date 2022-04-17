@@ -25,7 +25,7 @@ public class Astar {
         Puzzle nodo;
         opened.add(puzzle);
         
-        while(loop) {
+        while(!opened.isEmpty()) {
 
             current = opened.get(0);
 
