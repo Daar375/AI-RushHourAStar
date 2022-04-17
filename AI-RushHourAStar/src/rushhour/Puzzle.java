@@ -136,7 +136,6 @@ public class Puzzle {
     public boolean crashCars(int x, int y,Vehicle currentCar) {
         for (Vehicle car : cars) {
             if (car.isHorizontal()) {
-                if (!currentCar.equals(car) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y <= car.posY && y + currentCar.size-1 >= car.posY )) {
                     colisionVehiculo = car;
                     return true;
                 }
@@ -155,7 +154,11 @@ public class Puzzle {
         if(alreadyScored){
             return score;
         }
+<<<<<<< HEAD
         
+=======
+        // Puzzle currentPuzzleClone = (Puzzle) tablero.clone();
+>>>>>>> parent of 6d962e4 (Cambios en getF)
         Vehicle carro = getObjectiveCar();//.clone();
         int count = 0; //distancia del objetivo al destino
         int carBlock = 0; //carros bloqueando    
