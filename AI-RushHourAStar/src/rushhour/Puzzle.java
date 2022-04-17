@@ -136,6 +136,7 @@ public class Puzzle {
     public boolean crashCars(int x, int y,Vehicle currentCar) {
         for (Vehicle car : cars) {
             if (car.isHorizontal()) {
+                if (!currentCar.equals(car) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y <= car.posY && y + currentCar.size-1 >= car.posY ) && (car.type!="player")) {
                     colisionVehiculo = car;
                     return true;
                 }
