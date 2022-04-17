@@ -23,7 +23,7 @@ public class Puzzle {
     // private Vehicle Vehiculos[]; Revisar
 
     public LinkedList<Vehicle> cars;
-    public int score;
+    public float score;
     public Vehicle colisionVehiculo;
     
     
@@ -164,7 +164,7 @@ public class Puzzle {
         return crashes;
     }
 
-    public int getF() { //costo
+    public float getF() { //costo
         
         if(alreadyScored){
             return score;
@@ -192,15 +192,41 @@ public class Puzzle {
                 } 
             }
         }
+        float generalBlocks = 0;
+        for (Vehicle vehiculo : cars) {
+            Vehicle clone =  vehiculo.clone();
+
+            for (int i = 0; i < 7; i++) {
+                if (clone.isHorizontal()){
+                    if (clone.posX != 5 ) {
+                        generalBlocks += (float)crashCars(clone.posX, clone.posY,clone)/10;
+                        clone.moveRight();
+                    }else{
+                        generalBlocks += (float)crashCars(clone.posX, clone.posY,clone)/10;
+                        clone.moveLeft();
+                
+                    }
+                }else{
+                    if (clone.posY != 5 ) {
+                        generalBlocks += (float)crashCars(clone.posX, clone.posY,clone)/10;
+                        clone.moveDown();
+                    }else{
+                        generalBlocks += (float)crashCars(clone.posX, clone.posY,clone)/10;
+                        clone.moveUp();
+                
+                    } 
+                }
+            }
+            
+        }
+
         blocks = carBlock;
         distance = count;
-
+         
         alreadyScored = true;
-        score = carBlock+count;
-        if(blocks == 1){
-            System.out.println("a");
-        }
-        return carBlock + count;
+        score = carBlock+count+ generalBlocks;
+        System.out.println (score);
+        return carBlock + count + generalBlocks;
     }
 
     public Vehicle getObjectiveCar() {

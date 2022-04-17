@@ -20,7 +20,6 @@ public class Astar {
     //h: distancia hacia el objetivo 
      public ArrayList<Puzzle>  heuristica(Puzzle puzzle,GUI GUI){
         Boolean loop = true;
-        int bloqueos;
         Puzzle current;
         Puzzle nodo;
         opened.add(puzzle);
@@ -30,7 +29,7 @@ public class Astar {
             current = opened.get(0);
 
             
-            int valNodo;
+            float valNodo;
             for(int i = 0; i<opened.size(); i++){ //obtenemos la opcion con menor costo
                 nodo = opened.get(i);
                 valNodo = nodo.getF();
