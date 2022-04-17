@@ -25,15 +25,15 @@ public class Astar {
         Puzzle nodo;
         opened.add(puzzle);
         
-        while(loop) {
+        while(!opened.isEmpty()) {
 
             current = opened.get(0);
 
-            int val = current.getF(current);
+            int val = current.getF();
             int valNodo;
             for(int i = 0; i<opened.size(); i++){ //obtenemos la opcion con menor costo
                 nodo = opened.get(i);
-                valNodo = nodo.getF(current);
+                valNodo = nodo.getF();
                 if(val > valNodo){
                     current = opened.get(i);
                 }
@@ -48,7 +48,7 @@ public class Astar {
             for (Puzzle moves : current.posibleMoves()){
                 Puzzle openNode = comparePuzzles(opened,moves ) ;
                 if(openNode != null){
-                    if(openNode.getF(current) < moves.getF(current)){ 
+                    if(openNode.getF() < moves.getF()){ 
                         opened.remove(openNode);
                         opened.add(moves);
                     }

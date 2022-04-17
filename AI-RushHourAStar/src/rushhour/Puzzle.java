@@ -150,7 +150,7 @@ public class Puzzle {
         return false;
     }
 
-    public int getF(Puzzle tablero) { //costo
+    public int getF() { //costo
         
         if(alreadyScored){
             return score;
