@@ -29,17 +29,18 @@ public class Astar {
 
             current = opened.get(0);
 
-            int val = current.getF();
+            
             int valNodo;
             for(int i = 0; i<opened.size(); i++){ //obtenemos la opcion con menor costo
                 nodo = opened.get(i);
                 valNodo = nodo.getF();
-                if(val > valNodo){
+                if(current.getF() > valNodo){
                     current = opened.get(i);
                 }
             }
             opened.remove(current);
             closed.add(current);
+            current.printMatrix(current.getMatrix());
 
             if(current.isSolved()){
                 GUI.DrawGameSequence(closed);

@@ -30,6 +30,9 @@ public class Puzzle {
     public int exitX;
     public int exitY;
 
+    private int blocks;
+        private int distance;
+
     private int destino; //cordenada final
     private Integer tamañoTablero;
     private int[][] matrix;
@@ -142,21 +145,23 @@ public class Puzzle {
         return false;
     }
 
-    public boolean crashCars(int x, int y,Vehicle currentCar) {
+    public int crashCars(int x, int y,Vehicle currentCar) {
+        int crashes = 0;
         for (Vehicle car : cars) {
+
             if (car.isHorizontal()) {
                 if (!currentCar.equals(car) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y <= car.posY && y + currentCar.size-1 >= car.posY )) {
                     colisionVehiculo = car;
-                    return true;
+                    crashes++;
                 }
             } else if (car.isVertical()) {
                 if (!currentCar.equals(car) &&(y >= car.posY&&y <= car.posY + car.size-1 ) && (x <= car.posX && x + currentCar.size-1 >= car.posX )) {
                     colisionVehiculo = car;
-                    return true;
+                    crashes++;
                 }
             }
         }
-        return false;
+        return crashes;
     }
 
     public int getF() { //costo
@@ -170,39 +175,31 @@ public class Puzzle {
 
         for (int i = 0; i < 5; i++) {
             if (carro.isHorizontal()) {
-                if (destino == 6 && carro.posX < 6) {
-                    if (i > 1 && crashCars(carro.posX, i,carro)) {
-                        carBlock++;
-                    }
+                if (carro.posX != exitX ) {
+                    carBlock+=crashCars(carro.posX, carro.posY,carro);
+                 
                     carro.moveRight();
                     count++;
 
-                } else {
-                    if (i < 4 && crashCars(carro.posX, i,carro)) {
-                        carBlock++;
-                    }
-                    carro.moveLeft();
-                    count++;
-                }
+                } 
             }
             if (carro.isVertical()) {
-                if (destino == 6 && carro.posY < 6) {
-                    if (i > 1 && crashCars(carro.posY, i,carro)) {
-                        carBlock++;
-                    }
-                    carro.moveRight();
+                if (carro.posY != exitY) {
+                    carBlock+=crashCars(carro.posX, carro.posY,carro);
+
+                    carro.moveDown();
                     count++;
-                } else {
-                    if (i < 4 && crashCars(carro.posY, i,carro)) {
-                        carBlock++;
-                    }
-                    carro.moveLeft();
-                    count++;
-                }
+                } 
             }
         }
+        blocks = carBlock;
+        distance = count;
+
         alreadyScored = true;
         score = carBlock+count;
+        if(blocks == 1){
+            System.out.println("a");
+        }
         return carBlock + count;
     }
 
@@ -211,28 +208,29 @@ public class Puzzle {
     }
 
     public boolean canMoveDown(Vehicle car) {
-        if (car.posY + car.size < tamañoTablero && !crashCars(car.posX, car.posY + 1,car)) {
+        if (car.posY + car.size < tamañoTablero && crashCars(car.posX, car.posY + 1,car)==0) {
             return true;
         }
         return false;
     }
 
     public boolean canMoveUp(Vehicle car) {
-        if (car.posY > 0 && !crashCars(car.posX, car.posY - 1,car)) {
+        if (car.posY > 0 && crashCars(car.posX, car.posY - 1,car)==0) {
             return true;
         }
         return false;
     }
 
     public boolean canMoveRight(Vehicle car) {
-        if (car.posX + car.size < tamañoTablero && !crashCars(car.posX + 1, car.posY,car)) {
+
+        if (car.posX + car.size < tamañoTablero && crashCars(car.posX + 1, car.posY,car)==0) {
             return true;
         }
         return false;
     }
 
     public boolean canMoveLeft(Vehicle car) {
-        if (car.posX > 0 && !crashCars(car.posX - 1, car.posY,car)) {
+        if (car.posX > 0 && crashCars(car.posX - 1, car.posY,car)==0) {
             return true;
         }
         return false;
@@ -250,20 +248,22 @@ public class Puzzle {
             int[][] res = new int[6][6];
             int carNumber = 1;
             for(Vehicle car: cars){
-                res[car.posX][car.posY] = 1;
+
+                res[ car.posY][car.posX] = carNumber;
                 int tempLenght  = car.size-1; 
                 if(car.isHorizontal()){
                     while(tempLenght !=0){
-                       res[car.posX+tempLenght][car.posY] = 1;
+                       res[ car.posY][car.posX+tempLenght] = carNumber;
                     tempLenght--;
                     }
                 }else{
                     while(tempLenght !=0){
-                       res[car.posX][car.posY+tempLenght] = 1;
+                       res[car.posY+tempLenght][car.posX ] = carNumber;
                     tempLenght--;
                     }
                 }
                 carNumber++;
+
             }
         return res;
         }
@@ -276,12 +276,11 @@ public class Puzzle {
 
 
     }
-            System.out.println();
-
-        System.out.println();        System.out.println();
-
-        System.out.println();        System.out.println();
-
+        System.out.println();
+        System.out.println();        
+        System.out.println();
+        System.out.println();        
+        System.out.println();
         System.out.println();
 }
     /*
