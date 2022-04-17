@@ -156,8 +156,8 @@ private Graphics tableGraphics;
             Object element = i.next();
             System.out.print(element.toString() + " ");
         }
-        //Astar game = new Astar();
-        //game.heuristica(initialPuzzle,this);
+        Astar game = new Astar();
+        game.heuristica(initialPuzzle,this);
         
       
     }//GEN-LAST:event_StartButtonActionPerformed

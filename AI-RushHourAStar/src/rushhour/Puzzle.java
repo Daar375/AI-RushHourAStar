@@ -6,6 +6,7 @@ package rushhour;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.lang.Math;
 
 /**
  *
@@ -149,15 +150,63 @@ public class Puzzle {
         return false;
     }
 
-    public int getF() { //costo
+    public int getF(Puzzle tablero) { //costo
         
         if(alreadyScored){
             return score;
         }
-        Vehicle carro = getObjectiveCar().clone();
+        
+        Vehicle carro = getObjectiveCar();//.clone();
         int count = 0; //distancia del objetivo al destino
-        int carBlock = 0; //carros bloqueando        
+        int carBlock = 0; //carros bloqueando    
+        
+        if(carro.isHorizontal()){
+            if(exitX == 5){
+                count = exitX - carro.posX;
+                while(carro.posX < exitX){
+                    if(!canMoveRight(carro)){
+                        carBlock++;
+                    }
+                    carro.moveRight();
+                }                
+            }
+            if(exitX == -1){
+                count = Math.abs(exitX - carro.posX);
+                while(carro.posX > exitX){
+                    if(!canMoveLeft(carro)){
+                        carBlock++;
+                    }
+                    carro.moveLeft();
+                }                
+            }
+        }
+        if(carro.isVertical()){
+            if(exitY == 5){
+                count = exitY - carro.posY;
+                while(carro.posY < exitY){
+                    if(!canMoveDown(carro)){
+                        carBlock++;
+                    }
+                    carro.moveDown();
+                }                
+            }
+            if(exitY == -1){
+                count = Math.abs(exitY - carro.posY);
+                while(carro.posY > exitY){
+                    if(!canMoveUp(carro)){
+                        carBlock++;
+                    }
+                    carro.moveUp();
+                }                
+            }
+        }
+        
 
+        //if(carro.isVertical()){
+          //  while(carro.)
+        //}
+        
+        /*
         for (int i = 0; i < 5; i++) {
             if (carro.isHorizontal()) {
                 if (exitX == 6 && carro.posX < 6) {
@@ -190,9 +239,9 @@ public class Puzzle {
                     count++;
                 }
             }
-        }
+        }*/
         alreadyScored = true;
-        score = carBlock+count;
+        score = carBlock + count;
         return carBlock + count;
     }
 
