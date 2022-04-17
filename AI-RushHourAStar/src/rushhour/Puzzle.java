@@ -15,25 +15,18 @@ public class Puzzle {
 
     // VARIABLES ------------------------------------------------------------------
     private String nombre;
-    //private Node nodoInit;
-
     private Integer contBusqueda;
-
     private Integer numVehiculos;
-    // private Vehicle Vehiculos[]; Revisar
-
-    public LinkedList<Vehicle> cars;
-    public int score;
-    public Vehicle colisionVehiculo;
-    
-    
-    public int exitX;
-    public int exitY;
-
-    private int destino; //cordenada final
     private Integer tamañoTablero;
     private int[][] matrix;
     private boolean alreadyScored = false;
+    
+    public LinkedList<Vehicle> cars;
+    public int score;
+    public Vehicle colisionVehiculo;    
+    public int exitX; //cordenada x destino
+    public int exitY; //cordenada y destino
+
     
     // CONSTRUCTOR ----------------------------------------------------------------
     public Puzzle(int pTamañoTablero, LinkedList<Vehicle> pNuevosVehiculos,int winX, int winY) {
@@ -47,9 +40,6 @@ public class Puzzle {
     }
 
     // MÉTODOS --------------------------------------------------------------------
-    public Puzzle() {
-        //constructor
-    }
 
     public Integer getNumVehiculos() {
         return numVehiculos;
@@ -91,7 +81,7 @@ public class Puzzle {
             if (vehiculo.isVertical()) {
                 LinkedList<Vehicle> nuevosVehiculos = cloneCars(vehiculos);
                 Vehicle nuevoVehiculo = nuevosVehiculos.get(i);
-                while (canMoveDown(nuevoVehiculo)) {
+                if (canMoveDown(nuevoVehiculo)) {
                     nuevoVehiculo.moveDown();
                     posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
@@ -99,7 +89,7 @@ public class Puzzle {
                 }
                 nuevosVehiculos = cloneCars(vehiculos);
                 nuevoVehiculo = nuevosVehiculos.get(i);
-                while (canMoveUp(nuevoVehiculo)) {
+                if (canMoveUp(nuevoVehiculo)) {
                     nuevoVehiculo.moveUp();
                     posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
@@ -108,19 +98,19 @@ public class Puzzle {
             } else if (vehiculo.isHorizontal()) {
                 LinkedList<Vehicle> nuevosVehiculos = cloneCars(vehiculos);
                 Vehicle nuevoVehiculo = nuevosVehiculos.get(i);
-                while (canMoveRight(nuevoVehiculo)) {
+                if (canMoveRight(nuevoVehiculo)) {
                     nuevoVehiculo.moveRight();
                     posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
-                    nuevoVehiculo = nuevosVehiculos.get(i);
+
                 }
                 nuevosVehiculos = cloneCars(vehiculos);
                 nuevoVehiculo = nuevosVehiculos.get(i);
-                while (canMoveLeft(nuevoVehiculo)) {
+                if (canMoveLeft(nuevoVehiculo)) {
                     nuevoVehiculo.moveLeft();
                     posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
-                    nuevoVehiculo = nuevosVehiculos.get(i);
+
                 }
             }
         }
@@ -170,7 +160,7 @@ public class Puzzle {
 
         for (int i = 0; i < 5; i++) {
             if (carro.isHorizontal()) {
-                if (destino == 6 && carro.posX < 6) {
+                if (exitX == 6 && carro.posX < 6) {
                     if (i > 1 && crashCars(carro.posX, i,carro)) {
                         carBlock++;
                     }
@@ -186,7 +176,7 @@ public class Puzzle {
                 }
             }
             if (carro.isVertical()) {
-                if (destino == 6 && carro.posY < 6) {
+                if (exitY == 6 && carro.posY < 6) {
                     if (i > 1 && crashCars(carro.posY, i,carro)) {
                         carBlock++;
                     }
@@ -284,17 +274,17 @@ public class Puzzle {
 
         System.out.println();
 }
-    /*
-    public Node getNodoInit() {
-        return nodoInit;
-    }
-     */
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        // TODO code application logic here
-        
 
-    }
+
+    /*@Override
+    public String toString(){
+        String texto = "";
+        for (Vehicle car : cars){
+            texto.concat(" carro x:");
+            texto.concat(String.valueOf(car.posX));
+            texto.concat(" y: ");
+            texto.concat(String.valueOf(car.posY));
+        }
+        return texto;
+    }*/
 }
