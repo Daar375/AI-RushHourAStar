@@ -19,12 +19,12 @@ public class Astar {
     //g: numero de carros bloqueando
     //h: distancia hacia el objetivo 
      public ArrayList<Puzzle>  heuristica(Puzzle puzzle,GUI GUI){
-        Boolean loop = true;
+        //Boolean loop = true;
         Puzzle current;
         Puzzle nodo;
         opened.add(puzzle);
         
-        while(loop) {
+        while(!opened.isEmpty()) {
 
             current = opened.get(0);
 
@@ -43,6 +43,7 @@ public class Astar {
 
             if(current.isSolved()){
                 GUI.DrawGameSequence(closed);
+                System.out.println("Moves: "+ closed.size());
                 return closed;
             }
             for (Puzzle moves : current.posibleMoves()){

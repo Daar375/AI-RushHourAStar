@@ -94,36 +94,36 @@ public class Puzzle {
             if (vehiculo.isVertical()) {
                 LinkedList<Vehicle> nuevosVehiculos = cloneCars(vehiculos);
                 Vehicle nuevoVehiculo = nuevosVehiculos.get(i);
-                while (canMoveDown(nuevoVehiculo)) {
+                if (canMoveDown(nuevoVehiculo)) {
                     nuevoVehiculo.moveDown();
                     posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
-                    nuevoVehiculo = nuevosVehiculos.get(i);
+                    
                 }
                 nuevosVehiculos = cloneCars(vehiculos);
                 nuevoVehiculo = nuevosVehiculos.get(i);
-                while (canMoveUp(nuevoVehiculo)) {
+                if (canMoveUp(nuevoVehiculo)) {
                     nuevoVehiculo.moveUp();
                     posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
-                    nuevoVehiculo = nuevosVehiculos.get(i);
+                    
                 }
             } else if (vehiculo.isHorizontal()) {
                 LinkedList<Vehicle> nuevosVehiculos = cloneCars(vehiculos);
                 Vehicle nuevoVehiculo = nuevosVehiculos.get(i);
-                while (canMoveRight(nuevoVehiculo)) {
+                if (canMoveRight(nuevoVehiculo)) {
                     nuevoVehiculo.moveRight();
                     posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
-                    nuevoVehiculo = nuevosVehiculos.get(i);
+                    
                 }
                 nuevosVehiculos = cloneCars(vehiculos);
                 nuevoVehiculo = nuevosVehiculos.get(i);
-                while (canMoveLeft(nuevoVehiculo)) {
+                if (canMoveLeft(nuevoVehiculo)) {
                     nuevoVehiculo.moveLeft();
                     posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos,exitX,exitY));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
-                    nuevoVehiculo = nuevosVehiculos.get(i);
+                    
                 }
             }
         }
