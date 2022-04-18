@@ -10,12 +10,25 @@ public class Vehicle {
     public int posX;
     public int posY;
 
+    
+    public int finalposX;
+    public int finalposY;
+    
+    
     public Vehicle(String type, String orientation, int size, int posX, int posY) {
         this.type = type;
         this.orientation = orientation;
         this.size = size;
         this.posX = posX;
         this.posY = posY;
+        
+        if(isHorizontal()){
+            finalposX=posX+size-1;
+            finalposY=posY;
+        }else if(isVertical()){
+            finalposX=posX;
+            finalposY=posY+size-1;
+        }
     }
 
     public boolean isHorizontal() {

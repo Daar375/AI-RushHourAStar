@@ -37,7 +37,7 @@ public class Astar {
                     current = opened.get(i);
                 }
             }
-           GUI.DrawGame(current);
+           //GUI.DrawGame(current);
 
             opened.remove(current);
             closed.add(current);

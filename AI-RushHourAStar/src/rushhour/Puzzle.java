@@ -24,7 +24,7 @@ public class Puzzle {
 
     public LinkedList<Vehicle> cars;
     public float score;
-    public Vehicle colisionVehiculo;
+    public  LinkedList<Vehicle> colisionVehiculo = new LinkedList<Vehicle> ();
     
     
     public int exitX;
@@ -145,37 +145,36 @@ public class Puzzle {
         return false;
     }
 
-    public int crashCars(int x, int y,Vehicle currentCar) {
-        int crashes = 0;
+    public Vehicle crashCars(int x, int y,Vehicle currentCar) {
+        LinkedList<Vehicle> crashes = new LinkedList<Vehicle>();
         for (Vehicle car : cars) {
 
             if (car.isHorizontal()) {
                if (currentCar.isHorizontal()) {
                    if (!currentCar.type.equals(car.type) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y == car.posY)) {
-                    colisionVehiculo = car;
-                    crashes++;
+                        return car;
                 }
                }
                    else if (!currentCar.type.equals(car.type) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y <= car.posY && y + currentCar.size-1 >= car.posY )) {
-                    colisionVehiculo = car;
-                    crashes++;
+                            return car;
+
                 }
             } else if (car.isVertical()) {
                 if(currentCar.isVertical()){
                     if (!currentCar.type.equals(car.type) &&(y >= car.posY&&y <= car.posY + car.size-1 ) && (x == car.posX)) {
-                    colisionVehiculo = car;
-                    crashes++;
+                        return car;
+
                 }
                 }else if (!currentCar.type.equals(car.type) &&(y >= car.posY&&y <= car.posY + car.size-1 ) && (x <= car.posX && x + currentCar.size-1 >= car.posX )) {
-                    colisionVehiculo = car;
-                    crashes++;
+                        return car;
+
                 } {
                     
                 }
               
             }
         }
-        return crashes;
+        return null;
     }
 
     public float getF() { //costo
@@ -190,7 +189,9 @@ public class Puzzle {
         for (int i = 0; i < 5; i++) {
             if (carro.isHorizontal()) {
                 if (carro.posX != exitX ) {
-                    carBlock+=crashCars(carro.posX, carro.posY,carro);
+                    if(crashCars(carro.posX, carro.posY,carro)!=null)
+                        colisionVehiculo.add(crashCars(carro.posX, carro.posY,carro));
+                     carBlock++;
                  
                     carro.moveRight();
                     count++;
@@ -199,63 +200,110 @@ public class Puzzle {
             }
             if (carro.isVertical()) {
                 if (carro.posY != exitY) {
-                    carBlock+=crashCars(carro.posX, carro.posY,carro);
+                    if(crashCars(carro.posX, carro.posY,carro)!=null){
+                       colisionVehiculo.add(crashCars(carro.posX, carro.posY,carro));
+                        carBlock++;
+                    }
 
                     carro.moveDown();
                     count++;
                 } 
             }
         }
-        float generalBlocks = 0;
-        for (Vehicle vehiculo : cars) {
-            Vehicle clone =  vehiculo.clone();
 
-            for (int i = 0; i < 7; i++) {
-                if (clone.isHorizontal()){
-                    if (clone.posX != 5 ) {
-                        generalBlocks += (float)crashCars(clone.posX, clone.posY,clone)/10;
-                        clone.moveRight();
-                    }else{
-                        generalBlocks += (float)crashCars(clone.posX, clone.posY,clone)/10;
-                        clone.moveLeft();
-                
-                    }
-                }else{
-                    if (clone.posY != 5 ) {
-                        generalBlocks += (float)crashCars(clone.posX, clone.posY,clone)/10;
-                        clone.moveDown();
-                    }else{
-                        generalBlocks += (float)crashCars(clone.posX, clone.posY,clone)/10;
-                        clone.moveUp();
-                
-                    } 
-                }
-            }
-            
-        }
-
+        float generalBlocks=0;
+        for (Vehicle blockers : (LinkedList<Vehicle>)colisionVehiculo.clone()){
+         generalBlocks= recursiveBlocks(blockers)/10;
+        }   
         blocks = carBlock;
         distance = count;
          
         alreadyScored = true;
-        score = carBlock+count+ generalBlocks;
-        System.out.println (score);
-        return carBlock + count + generalBlocks;
+        return score+generalBlocks;
     }
 
+    
+    public float recursiveBlocks(Vehicle vehiculo){
+        float generalBlocks = 0;
+            LinkedList<Vehicle> collisions = new  LinkedList<Vehicle>();
+            Vehicle clone =  vehiculo.clone();
+            if (clone.isHorizontal()){
+            while(clone.posX<5){
+                        Vehicle cotemp = crashCars(clone.posX, clone.posY,clone);
+                        if(!colisionVehiculo.contains(cotemp)&&cotemp!=null){
+                            collisions.add(cotemp);
+                                                        colisionVehiculo.add(cotemp);
+
+                            generalBlocks++;
+                            break;
+                        }
+                                                    clone.moveRight();
+
+                }
+            
+              while(clone.posX!=0){
+                        Vehicle cotemp = crashCars(clone.posX, clone.posY,clone);    
+                        if(!colisionVehiculo.contains(cotemp)&&cotemp!=null){
+                            collisions.add(cotemp);
+                                                        colisionVehiculo.add(cotemp);
+
+                            generalBlocks++;
+                            break;
+                        }
+                                                    clone.moveLeft();
+
+                }
+            }
+            else{
+               while(clone.posY<5){
+                        Vehicle cotemp = crashCars(clone.posX, clone.posY,clone);    
+                        if(!colisionVehiculo.contains(cotemp)&&cotemp!=null){
+                            collisions.add(cotemp);
+                                                        colisionVehiculo.add(cotemp);
+
+                            generalBlocks++;
+                            break;
+                        }
+                                                    clone.moveDown();
+
+                }
+            
+              while(clone.posY!=0){
+                        Vehicle cotemp = crashCars(clone.posX, clone.posY,clone);    
+                        if(!colisionVehiculo.contains(cotemp)&&cotemp!=null){
+                            collisions.add(cotemp);
+                            colisionVehiculo.add(cotemp);
+                            generalBlocks++;
+                            break;
+                        }
+                                                    clone.moveUp();
+
+                }
+                }
+            
+            
+        
+        if(collisions.size()!=0){
+            for (Vehicle blockers : collisions){
+                generalBlocks =+ recursiveBlocks(blockers)/10;
+                
+            }
+        }
+        return generalBlocks;
+    }
     public Vehicle getObjectiveCar() {
         return cars.get(0);
     }
 
     public boolean canMoveDown(Vehicle car) {
-        if (car.posY + car.size < tamañoTablero && crashCars(car.posX, car.posY + 1,car)==0) {
+        if (car.posY + car.size < tamañoTablero && crashCars(car.posX, car.posY + 1,car)==null) {
             return true;
         }
         return false;
     }
 
     public boolean canMoveUp(Vehicle car) {
-        if (car.posY > 0 && crashCars(car.posX, car.posY - 1,car)==0) {
+        if (car.posY > 0 && crashCars(car.posX, car.posY - 1,car)==null) {
             return true;
         }
         return false;
@@ -263,14 +311,14 @@ public class Puzzle {
 
     public boolean canMoveRight(Vehicle car) {
 
-        if (car.posX + car.size < tamañoTablero && crashCars(car.posX + 1, car.posY,car)==0) {
+        if (car.posX + car.size < tamañoTablero && crashCars(car.posX + 1, car.posY,car)==null) {
             return true;
         }
         return false;
     }
 
     public boolean canMoveLeft(Vehicle car) {
-        if (car.posX > 0 && crashCars(car.posX - 1, car.posY,car)==0) {
+        if (car.posX > 0 && crashCars(car.posX - 1, car.posY,car)==null) {
             return true;
         }
         return false;
