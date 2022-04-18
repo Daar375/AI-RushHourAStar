@@ -150,15 +150,29 @@ public class Puzzle {
         for (Vehicle car : cars) {
 
             if (car.isHorizontal()) {
-                if (!currentCar.equals(car) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y <= car.posY && y + currentCar.size-1 >= car.posY )) {
+               if (currentCar.isHorizontal()) {
+                   if (!currentCar.type.equals(car.type) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y == car.posY)) {
+                    colisionVehiculo = car;
+                    crashes++;
+                }
+               }
+                   else if (!currentCar.type.equals(car.type) &&(x >= car.posX&&x <= car.posX + car.size-1 ) && (y <= car.posY && y + currentCar.size-1 >= car.posY )) {
                     colisionVehiculo = car;
                     crashes++;
                 }
             } else if (car.isVertical()) {
-                if (!currentCar.equals(car) &&(y >= car.posY&&y <= car.posY + car.size-1 ) && (x <= car.posX && x + currentCar.size-1 >= car.posX )) {
+                if(currentCar.isVertical()){
+                    if (!currentCar.type.equals(car.type) &&(y >= car.posY&&y <= car.posY + car.size-1 ) && (x == car.posX)) {
                     colisionVehiculo = car;
                     crashes++;
                 }
+                }else if (!currentCar.type.equals(car.type) &&(y >= car.posY&&y <= car.posY + car.size-1 ) && (x <= car.posX && x + currentCar.size-1 >= car.posX )) {
+                    colisionVehiculo = car;
+                    crashes++;
+                } {
+                    
+                }
+              
             }
         }
         return crashes;

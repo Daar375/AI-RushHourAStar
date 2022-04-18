@@ -37,6 +37,8 @@ public class Astar {
                     current = opened.get(i);
                 }
             }
+           GUI.DrawGame(current);
+
             opened.remove(current);
             closed.add(current);
             current.printMatrix(current.getMatrix());

@@ -143,24 +143,23 @@ private Graphics tableGraphics;
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
         tableGraphics = gamePanel.getGraphics();
         Vehicle player = new Vehicle("player","h",2,0,2);
-        Vehicle car = new Vehicle("a","v",2,5,2);
-        Vehicle car2 = new Vehicle("b","v",2,4,2);
-        Vehicle car3 = new Vehicle("c","h",2,3,4);
-        Vehicle car4= new Vehicle("c","h",2,3,0);
-
+        Vehicle car = new Vehicle("a","v",2,1,3);
+        Vehicle car2 = new Vehicle("b","h",2,2,4);
+        Vehicle car3 = new Vehicle("c","v",3,4,0);
+        Vehicle car4= new Vehicle("c","h",3,5,1);
         LinkedList a = new LinkedList();  
         a.add(player);
         a.add(car);
-                a.add(car2);
-                a.add(car3);
-                a.add(car4);
+              a.add(car2);
+                 a.add(car3);
+                 a.add(car4);
 
         Puzzle initialPuzzle = new Puzzle(6,a,5,2);
 
         DrawGame(initialPuzzle);
         Astar game = new Astar();
         game.heuristica(initialPuzzle,this);
-        
+
       
     }//GEN-LAST:event_StartButtonActionPerformed
     public void DrawGameSequence(ArrayList<Puzzle> squence){
