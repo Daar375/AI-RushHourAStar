@@ -241,7 +241,7 @@ public class Puzzle {
             if (carro.isHorizontal()) {
                 if (carro.posX != exitX) {
                     if (crashCars(carro.posX, carro.posY, carro) != -2) {
-                        colisionVehiculo.add(cars.get(crashCars(carro.posX, carro.posY, carro)));
+                        //colisionVehiculo.add(cars.get(crashCars(carro.posX, carro.posY, carro)));
                         carBlock++;
                     }
                     carro.moveRight();
@@ -252,7 +252,7 @@ public class Puzzle {
             if (carro.isVertical()) {
                 if (carro.posY != exitY) {
                     if (crashCars(carro.posX, carro.posY, carro) != -2) {
-                        colisionVehiculo.add(cars.get(crashCars(carro.posX, carro.posY, carro)));
+                        //colisionVehiculo.add(cars.get(crashCars(carro.posX, carro.posY, carro)));
                         carBlock++;
                     }
 
@@ -266,20 +266,20 @@ public class Puzzle {
 
 
         
-        LinkedList<Vehicle> tempVehicles = (LinkedList<Vehicle>) colisionVehiculo.clone();
-        for (Vehicle blockers : tempVehicles) {
-            generalBlocks = generalBlocks + recursiveBlocks(blockers, getObjectiveCar()) / 1000;
-        }
+        //LinkedList<Vehicle> tempVehicles = (LinkedList<Vehicle>) colisionVehiculo.clone();
+        //for (Vehicle blockers : tempVehicles) {
+            generalBlocks = generalBlocks + recursiveBlocks(getObjectiveCar(),null) / 1000;
+        //}
         blocks = carBlock;
         distance = count;
-        score = carBlock + count + generalBlocks;
+        score = carBlock  + generalBlocks;
         alreadyScored = true;
         return score;
     }
 
     public float recursiveBlocks(Vehicle vehiculo, Vehicle vehiculoParent) {
         float generalBlocks = 0;
-        boolean blockingParent;
+        boolean blockingParent=false;
         int countSteps = 0;
 
 
@@ -287,12 +287,13 @@ public class Puzzle {
         Vehicle clone = vehiculo.clone();
         if (clone.isHorizontal()) {
             while (clone.posX < 6) {
+                if(vehiculoParent!=null){
                 blockingParent = isBlocking(clone, vehiculoParent);
                 if (blockingParent) {
                     generalBlocks = generalBlocks + 5;
                 } else {
                     generalBlocks = countSteps + generalBlocks;
-                }
+                }}
                 int block = canMoveRight(clone);
                 if (block == -1) {
                     if (blockingParent) {
@@ -324,6 +325,8 @@ public class Puzzle {
             clone = vehiculo.clone();
             countSteps = 0;
             while (clone.posX >= 0) {
+                                if(vehiculoParent!=null){
+
                 blockingParent = isBlocking(clone, vehiculoParent);
                 if (blockingParent) {
                     generalBlocks = generalBlocks + 5;
@@ -331,9 +334,10 @@ public class Puzzle {
                     generalBlocks = countSteps + generalBlocks;
 
                 }
+                                }
                 int block = canMoveLeft(clone);
 
-                if (block == -1 && isBlocking(clone, vehiculoParent)) {
+                if (block == -1) {
                     if (blockingParent) {
                         generalBlocks = generalBlocks + 50;
                     }
@@ -364,13 +368,15 @@ public class Puzzle {
             clone = vehiculo.clone();
             countSteps = 0;
             while (clone.posY < 6) {
+                                if(vehiculoParent!=null){
+
                 blockingParent = isBlocking(clone, vehiculoParent);
                 if (blockingParent) {
                     generalBlocks = generalBlocks + 5;
                 } else {
                     generalBlocks = countSteps + generalBlocks;
 
-                }
+                }}
                 int block = canMoveDown(clone);
                 if (block == -1) {
                     if (blockingParent) {
@@ -402,13 +408,15 @@ public class Puzzle {
             clone = vehiculo.clone();
             countSteps = 0;
             while (clone.posY >= 0) {
+                                if(vehiculoParent!=null){
+
                 blockingParent = isBlocking(clone, vehiculoParent);
                 if (blockingParent) {
                     generalBlocks = generalBlocks + 5;
                 } else {
                     generalBlocks = countSteps + generalBlocks;
 
-                }
+                }}
                 int block = canMoveUp(clone);
                 if (block == -1) {
                     if (blockingParent) {
