@@ -142,10 +142,10 @@ private Graphics tableGraphics;
 
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
         tableGraphics = gamePanel.getGraphics();
-        Vehicle player = new Vehicle("player","h",2,0,2);
-        Vehicle car = new Vehicle("a","v",2,1,3);
-       Vehicle car2 = new Vehicle("b","h",3,2,4);
-        Vehicle car3 = new Vehicle("c","v",3,4,1);
+        Vehicle player = new Vehicle("player","h",2,2,2);
+        Vehicle car = new Vehicle("a","v",2,2,3);
+       Vehicle car2 = new Vehicle("b","h",3,3,4);
+        Vehicle car3 = new Vehicle("c","v",2,4,1);
        Vehicle car4= new Vehicle("d","v",3,5,1);
         LinkedList a = new LinkedList();  
         a.add(player);

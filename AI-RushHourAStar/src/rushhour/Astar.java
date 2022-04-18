@@ -42,7 +42,7 @@ public class Astar {
             opened.remove(current);
             closed.add(current);
             current.printMatrix(current.getMatrix());
-
+GUI.DrawGame(current);
             if(current.isSolved()){
                 GUI.DrawGameSequence(closed);
                 System.out.println("Moves: "+ closed.size());
