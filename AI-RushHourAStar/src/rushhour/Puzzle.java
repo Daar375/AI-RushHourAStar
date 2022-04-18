@@ -308,6 +308,8 @@ public class Puzzle {
                         colisionVehiculo.add(cotemp);
 
                         generalBlocks=generalBlocks+3;
+                                            break;
+
 
                     }
                     countSteps++;
@@ -350,6 +352,8 @@ public class Puzzle {
                         collisions.add(cotemp);
                         colisionVehiculo.add(cotemp);
                         generalBlocks=generalBlocks+3;
+                                            break;
+
 
                     }
                     countSteps++;
@@ -391,6 +395,8 @@ public class Puzzle {
                         collisions.add(cotemp);
                         colisionVehiculo.add(cotemp);
                         generalBlocks=generalBlocks+3;
+                                            break;
+
 
                     }
                     clone.moveDown();
@@ -431,6 +437,8 @@ public class Puzzle {
                         collisions.add(cotemp);
                         colisionVehiculo.add(cotemp);
                         generalBlocks=generalBlocks+3;
+                                            break;
+
 
                     }
                     clone.moveUp();
