@@ -142,23 +142,34 @@ private Graphics tableGraphics;
 
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
         tableGraphics = gamePanel.getGraphics();
-        Vehicle player = new Vehicle("player","h",2,2,2);
-        Vehicle car = new Vehicle("a","v",2,2,3);
-       Vehicle car2 = new Vehicle("b","h",3,3,4);
-        Vehicle car3 = new Vehicle("c","v",2,4,1);
-       Vehicle car4= new Vehicle("d","v",3,5,1);
+        Vehicle player = new Vehicle("player","h",2,1,2);
+        Vehicle car = new Vehicle("a","v",3,0,0);
+        Vehicle car2 = new Vehicle("b","v",2,2,0);
+       Vehicle car3 = new Vehicle("c","v",2,3,1);
+        Vehicle car4= new Vehicle("d","h",3,3,0);
+
+        Vehicle car5 = new Vehicle("e","h",2,0,3);
+        Vehicle car6 = new Vehicle("f","h",2,2,3);
+        Vehicle car7 = new Vehicle("g","h",2,0,4);
+        Vehicle car8 = new Vehicle("f","h",2,2,4);
+
+        Vehicle car9 = new Vehicle("h","v",3,5,2);
         LinkedList a = new LinkedList();  
         a.add(player);
-       a.add(car);
-              a.add(car2);
-                 a.add(car3);
-               a.add(car4);
-
-        Puzzle initialPuzzle = new Puzzle(6,a,5,2);
+        a.add(car);
+        a.add(car2);
+        a.add(car3);
+        a.add(car4);
+        a.add(car5);
+        a.add(car6);
+        a.add(car7);
+        a.add(car8);
+        a.add(car9);
+        Puzzle initialPuzzle = new Puzzle(6,a,5,2,0);
 
         DrawGame(initialPuzzle);
         Astar game = new Astar();
-        game.heuristica(initialPuzzle,this);
+        DrawGameSequence(game.searchAStar(initialPuzzle));
 
       
     }//GEN-LAST:event_StartButtonActionPerformed
@@ -166,13 +177,13 @@ private Graphics tableGraphics;
         for (Puzzle puzzle : squence){
             try {
                 DrawGame(puzzle); 
-
-                TimeUnit.SECONDS.sleep(1);
+                puzzle.printMatrix(puzzle.getMatrix());
+                TimeUnit.MILLISECONDS.sleep(300);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        System.out.println("Moves: " + squence.size());
 
     }
     public void DrawGame(Puzzle puzzle){

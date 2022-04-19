@@ -28,6 +28,7 @@ public class Puzzle {
 
     public int exitX;
     public int exitY;
+    public int depth=0;
 
     private float blocks;
     private float distance;
@@ -38,11 +39,11 @@ public class Puzzle {
     private boolean alreadyScored = false;
 
     // CONSTRUCTOR ----------------------------------------------------------------
-    public Puzzle(int pTamañoTablero, LinkedList<Vehicle> pNuevosVehiculos, int winX, int winY) {
+    public Puzzle(int pTamañoTablero, LinkedList<Vehicle> pNuevosVehiculos, int winX, int winY,int depthIn) {
         super();
         exitX = winX;
         exitY = winY;
-
+        depth=depthIn;
         this.tamañoTablero = pTamañoTablero;
         this.cars = pNuevosVehiculos;
         numVehiculos = pNuevosVehiculos.size();
@@ -86,7 +87,7 @@ public class Puzzle {
         return tamañoTablero;
     }
 
-    public ArrayList<Puzzle> posibleMoves() {
+    public ArrayList<Puzzle> posibleMoves(int depth) {
         ArrayList<Puzzle> posibleMoves = new ArrayList<>();
         LinkedList<Vehicle> vehiculos = cars;
         for (int i = 0; i < vehiculos.size(); i++) {
@@ -94,34 +95,34 @@ public class Puzzle {
             if (vehiculo.isVertical()) {
                 LinkedList<Vehicle> nuevosVehiculos = cloneCars(vehiculos);
                 Vehicle nuevoVehiculo = nuevosVehiculos.get(i);
-                if (canMoveDown(nuevoVehiculo) == -2) {
+                while (canMoveDown(nuevoVehiculo) == -2) {
                     nuevoVehiculo.moveDown();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos, exitX, exitY));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos, exitX, exitY,depth));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
 
                 }
                 nuevosVehiculos = cloneCars(vehiculos);
                 nuevoVehiculo = nuevosVehiculos.get(i);
-                if (canMoveUp(nuevoVehiculo) == -2) {
+                while (canMoveUp(nuevoVehiculo) == -2) {
                     nuevoVehiculo.moveUp();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos, exitX, exitY));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos, exitX, exitY,depth));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
 
                 }
             } else if (vehiculo.isHorizontal()) {
                 LinkedList<Vehicle> nuevosVehiculos = cloneCars(vehiculos);
                 Vehicle nuevoVehiculo = nuevosVehiculos.get(i);
-                if (canMoveRight(nuevoVehiculo) == -2) {
+                while (canMoveRight(nuevoVehiculo) == -2) {
                     nuevoVehiculo.moveRight();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos, exitX, exitY));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos, exitX, exitY,depth));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
 
                 }
                 nuevosVehiculos = cloneCars(vehiculos);
                 nuevoVehiculo = nuevosVehiculos.get(i);
-                if (canMoveLeft(nuevoVehiculo) == -2) {
+                while (canMoveLeft(nuevoVehiculo) == -2) {
                     nuevoVehiculo.moveLeft();
-                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos, exitX, exitY));
+                    posibleMoves.add(new Puzzle(tamañoTablero, nuevosVehiculos, exitX, exitY,depth));
                     nuevosVehiculos = cloneCars(nuevosVehiculos);
 
                 }
@@ -151,7 +152,7 @@ public class Puzzle {
 
             if (car.isHorizontal()) {
                 if (currentCar.isHorizontal()) {
-                    if (!currentCar.type.equals(car.type) && (x >= car.posX && x <= car.posX + car.size - 1) && (y == car.posY)) {
+                    if (!currentCar.type.equals(car.type) && ((x >= car.posX && x <= car.posX + car.size - 1)  || (x +currentCar.getSize()-1 >= car.posX && x+currentCar.getSize()-1 <= car.posX + car.size - 1))&& (y == car.posY)) {
                         return count;
                     }
                 } else if (!currentCar.type.equals(car.type) && (x >= car.posX && x <= car.posX + car.size - 1) && (y <= car.posY && y + currentCar.size - 1 >= car.posY)) {
@@ -160,7 +161,7 @@ public class Puzzle {
                 }
             } else if (car.isVertical()) {
                 if (currentCar.isVertical()) {
-                    if (!currentCar.type.equals(car.type) && (y >= car.posY && y <= car.posY + car.size - 1) && (x == car.posX)) {
+                    if (!currentCar.type.equals(car.type) &&( (y >= car.posY && y <= car.posY + car.size - 1)  || (y +currentCar.getSize()-1>= car.posY && y+currentCar.getSize()-1 <= car.posY + car.size - 1))&& (x == car.posX)) {
                         return count;
 
                     }
