@@ -15,12 +15,10 @@ public class Puzzle {
 
     // VARIABLES ------------------------------------------------------------------
     private String nombre;
-    //private Node nodoInit;
 
     private Integer contBusqueda;
 
     private Integer numVehiculos;
-    // private Vehicle Vehiculos[]; Revisar
 
     public LinkedList<Vehicle> cars;
     public float score;
@@ -530,16 +528,5 @@ public class Puzzle {
         System.out.println();
     }
 
-    /*
-    public Node getNodoInit() {
-        return nodoInit;
-    }
-     */
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        // TODO code application logic here
 
-    }
 }

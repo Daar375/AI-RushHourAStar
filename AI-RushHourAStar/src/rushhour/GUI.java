@@ -142,36 +142,20 @@ private Graphics tableGraphics;
 
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
         tableGraphics = gamePanel.getGraphics();
-        Vehicle player = new Vehicle("player","h",2,1,2);
-        Vehicle car = new Vehicle("a","v",3,0,0);
-        Vehicle car2 = new Vehicle("b","v",2,2,0);
-       Vehicle car3 = new Vehicle("c","v",2,3,1);
-        Vehicle car4= new Vehicle("d","h",3,3,0);
-
-        Vehicle car5 = new Vehicle("e","h",2,0,3);
-        Vehicle car6 = new Vehicle("f","h",2,2,3);
-        Vehicle car7 = new Vehicle("g","h",2,0,4);
-        Vehicle car8 = new Vehicle("f","h",2,2,4);
-
-        Vehicle car9 = new Vehicle("h","v",3,5,2);
-        LinkedList a = new LinkedList();  
-        a.add(player);
-        a.add(car);
-        a.add(car2);
-        a.add(car3);
-        a.add(car4);
-        a.add(car5);
-        a.add(car6);
-        a.add(car7);
-        a.add(car8);
-        a.add(car9);
-        Puzzle initialPuzzle = new Puzzle(6,a,5,2,0);
+        Parser parse = new Parser();
+        String caso1 = "..\\Casos\\casoFacil1.csv";
+        String caso2 = "..\\Casos\\casoFacil2.csv";
+        int exit[];
+        
+        LinkedList carList = parse.parseFile(caso2); 
+        exit = parse.parseExit(caso2);
+        
+        Puzzle initialPuzzle = new Puzzle(6,carList,exit[0],exit[1],0);
 
         DrawGame(initialPuzzle);
         Astar game = new Astar();
         DrawGameSequence(game.searchAStar(initialPuzzle));
-
-      
+    
     }//GEN-LAST:event_StartButtonActionPerformed
     public void DrawGameSequence(ArrayList<Puzzle> squence){
         for (Puzzle puzzle : squence){

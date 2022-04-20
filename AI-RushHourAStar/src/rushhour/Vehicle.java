@@ -32,11 +32,11 @@ public class Vehicle {
     }
 
     public boolean isHorizontal() {
-        return orientation.equals("h");
+        return orientation.equals("H");
     }
 
     public boolean isVertical() {
-        return orientation.equals("v");
+        return orientation.equals("V");
     }
 
     public int getSize() {
