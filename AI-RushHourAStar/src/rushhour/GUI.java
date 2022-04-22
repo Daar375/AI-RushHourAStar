@@ -177,7 +177,8 @@ public static String getFileExtension(String fullName) {
         try{
         LinkedList carList = parse.parseFile(archivo); 
         exit = parse.parseExit(archivo);
-        
+                        inicio = System.currentTimeMillis();
+
         Puzzle initialPuzzle = new Puzzle(6,carList,exit[0],exit[1],0);
         Astar game = new Astar();
         if(exit[0] == 5){
