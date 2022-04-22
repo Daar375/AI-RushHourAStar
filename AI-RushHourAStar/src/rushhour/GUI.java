@@ -31,6 +31,9 @@ private Graphics tableGraphics;
         initComponents();
     }
 
+    long inicio;
+    long fin;
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +56,7 @@ private Graphics tableGraphics;
         StartButton.setText("Start");
         StartButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inicio = System.currentTimeMillis();
                 StartButtonActionPerformed(evt);
             }
         });
@@ -145,10 +149,16 @@ private Graphics tableGraphics;
         Parser parse = new Parser();
         String caso1 = "..\\Casos\\casoFacil1.csv";
         String caso2 = "..\\Casos\\casoFacil2.csv";
-        String caso3 = "..\\Casos\\casoInter3.csv";
+        String caso3 = "..\\Casos\\casoFacil3.csv";
         String caso4 = "..\\Casos\\casoInter4.csv";
-        String caso5 = "..\\Casos\\casoDificil5.csv";
-        String caso6 = "..\\Casos\\casoDificil6.csv";
+        String caso5 = "..\\Casos\\casoInter5.csv";
+        String caso6 = "..\\Casos\\casoInter6.csv";
+        String caso7 = "..\\Casos\\casoDificil7.csv";
+        String caso8 = "..\\Casos\\casoDificil8.csv";
+        String caso9 = "..\\Casos\\casoDificil9.csv";
+        String caso10 = "..\\Casos\\casoMuyDificil10.csv";
+        String caso11 = "..\\Casos\\casoMuyDificil11.csv";
+        String caso12 = "..\\Casos\\casoMuyDificil12.csv";
         int exit[];
         
         
@@ -179,6 +189,11 @@ private Graphics tableGraphics;
             }
         }
         System.out.println("Moves: " + squence.size());
+        fin = System.currentTimeMillis();
+         
+        double tiempo = (double) ((fin - inicio));
+         
+        System.out.println(tiempo +" milisegundos");
 
     }
     public void DrawGame(Puzzle puzzle,int exitx, int exity){

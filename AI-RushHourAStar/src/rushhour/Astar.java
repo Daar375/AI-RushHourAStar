@@ -16,33 +16,33 @@ public class Astar {
         opened = new ArrayList<Puzzle>();
         closed = new ArrayList<Puzzle>();
     }
-    	public ArrayList<Puzzle> pq= new ArrayList();;
+    public ArrayList<Puzzle> puzzle_queue= new ArrayList();
 	public ArrayList<Puzzle> searchAStar(Puzzle puzzle) {
 		HashMap<Puzzle, Puzzle> predecessor = new HashMap<>();
-                ArrayList<Puzzle> visited = new ArrayList();
-		Puzzle src =  puzzle;
-		Puzzle goal = null;
-		src.score=0;
-		pq.add(src);
-		visited.add(src);
-		while(!pq.isEmpty()){
-			Puzzle u =  pq.remove(0);
-			if(u.isSolved()){
-				goal = u;
+        ArrayList<Puzzle> visited = new ArrayList();
+		Puzzle path_puzzle =  puzzle;
+		Puzzle is_goal = null;
+		path_puzzle.score=0;
+		puzzle_queue.add(path_puzzle);
+		visited.add(path_puzzle);
+		while(!puzzle_queue.isEmpty()){
+			Puzzle current_puzzle =  puzzle_queue.remove(0);
+			if(current_puzzle.isSolved()){
+				is_goal = current_puzzle;
 				break;
 			}
-			for(Puzzle v : u.posibleMoves(0)){
-				float cost = u.score + 1 + v.getF();
-				if(comparePuzzles(visited, v)==null){
-					v.score=cost;
-					pq.add(v);
-					predecessor.put(v, u);
-					visited.add(v);
+			for(Puzzle element_puzzle : current_puzzle.posibleMoves(0)){
+				float cost = current_puzzle.score + 1 + element_puzzle.getF();
+				if(comparePuzzles(visited, element_puzzle)==null){
+					element_puzzle.score=cost;
+					puzzle_queue.add(element_puzzle);
+					predecessor.put(element_puzzle, current_puzzle);
+					visited.add(element_puzzle);
 				}
 			}
 		}
 		
-		return getPath(predecessor, goal);
+		return getPath(predecessor, is_goal);
 	}
         
         
