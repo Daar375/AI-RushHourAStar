@@ -11,12 +11,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import static java.lang.Thread.sleep;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -143,9 +145,18 @@ private Graphics tableGraphics;
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
                        System.exit(0);
     }//GEN-LAST:event_ExitButtonActionPerformed
-
+public static String getFileExtension(String fullName) {
+    String fileName = new File(fullName).getName();
+    int dotIndex = fileName.lastIndexOf('.');
+    return (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
+}
     private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
-        tableGraphics = gamePanel.getGraphics();
+        if(fileChooser.getSelectedFile()!=null){
+            String filePath = fileChooser.getSelectedFile().getPath();
+        if(getFileExtension(filePath).equals("csv"))    {
+            
+            
+            tableGraphics = gamePanel.getGraphics();
         Parser parse = new Parser();
         String caso1 = "..\\Casos\\casoFacil1.csv";
         String caso2 = "..\\Casos\\casoFacil2.csv";
@@ -162,8 +173,8 @@ private Graphics tableGraphics;
         int exit[];
         
         //Seleccionar caso
-        String archivo = caso12; 
-        
+        String archivo = fileChooser.getSelectedFile().getPath();
+        try{
         LinkedList carList = parse.parseFile(archivo); 
         exit = parse.parseExit(archivo);
         
@@ -176,7 +187,19 @@ private Graphics tableGraphics;
             DrawGame(initialPuzzle, exit[0], exit[1]+1);
             DrawGameSequence(game.searchAStar(initialPuzzle), exit[0], exit[1]+1);
         }
+                fin = System.currentTimeMillis();
+
+        }catch(Exception  e){
+                                        JOptionPane.showMessageDialog(null, "Error durante el parsing");
+
+                }
+        }else{
+                        JOptionPane.showMessageDialog(null, "Choose a .csv file");
+
+        }}else{
+            JOptionPane.showMessageDialog(null, "Choose a file");
     
+        }
     }//GEN-LAST:event_StartButtonActionPerformed
     public void DrawGameSequence(ArrayList<Puzzle> squence, int exitx, int exity){
         for (Puzzle puzzle : squence){
@@ -189,7 +212,6 @@ private Graphics tableGraphics;
             }
         }
         System.out.println("Moves: " + squence.size());
-        fin = System.currentTimeMillis();
          
         double tiempo = (double) ((fin - inicio));
          
