@@ -215,7 +215,7 @@ public static String getFileExtension(String fullName) {
          
         double tiempo = (double) ((fin - inicio));
          
-        System.out.println(tiempo +" milisegundos");
+        System.out.println(Math.abs(tiempo) +" milisegundos");
 
     }
     public void DrawGame(Puzzle puzzle,int exitx, int exity){
