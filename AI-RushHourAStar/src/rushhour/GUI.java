@@ -161,19 +161,19 @@ private Graphics tableGraphics;
         String caso12 = "..\\Casos\\casoMuyDificil12.csv";
         int exit[];
         
+        //Seleccionar caso
+        String archivo = caso12; 
         
-        LinkedList carList = parse.parseFile(caso6); 
-        exit = parse.parseExit(caso6);
+        LinkedList carList = parse.parseFile(archivo); 
+        exit = parse.parseExit(archivo);
         
         Puzzle initialPuzzle = new Puzzle(6,carList,exit[0],exit[1],0);
-        
+        Astar game = new Astar();
         if(exit[0] == 5){
             DrawGame(initialPuzzle, exit[0]+1, exit[1]);
-            Astar game = new Astar();
             DrawGameSequence(game.searchAStar(initialPuzzle), exit[0]+1, exit[1]);
         } else{
             DrawGame(initialPuzzle, exit[0], exit[1]+1);
-            Astar game = new Astar();
             DrawGameSequence(game.searchAStar(initialPuzzle), exit[0], exit[1]+1);
         }
     

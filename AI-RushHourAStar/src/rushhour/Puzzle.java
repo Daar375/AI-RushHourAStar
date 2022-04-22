@@ -22,7 +22,7 @@ public class Puzzle {
 
     public LinkedList<Vehicle> cars;
     public float score;
-    public LinkedList<Vehicle> colisionVehiculo = new LinkedList<Vehicle>();
+    public LinkedList<Vehicle> colisionVehiculo = new LinkedList<>();
 
     public int exitX;
     public int exitY;
@@ -31,7 +31,6 @@ public class Puzzle {
     private float blocks;
     private float distance;
 
-    private int destino; //cordenada final
     private Integer tamañoTablero;
     private int[][] matrix;
     private boolean alreadyScored = false;
@@ -144,7 +143,7 @@ public class Puzzle {
     }
 
     public int crashCars(int x, int y, Vehicle currentCar) {
-        LinkedList<Vehicle> crashes = new LinkedList<Vehicle>();
+        //LinkedList<Vehicle> crashes = new LinkedList<Vehicle>();
         int count = 0;
         for (Vehicle car : cars) {
 
@@ -167,10 +166,6 @@ public class Puzzle {
                     return count;
 
                 }
-                {
-
-                }
-
             }
             count++;
         }
@@ -227,7 +222,7 @@ public class Puzzle {
         return false;
     }
 
-    public float getF() { //costo
+    public float getF() { //funcion de costo
 
         if (alreadyScored) {
             return score;
@@ -282,7 +277,7 @@ public class Puzzle {
         int countSteps = 0;
 
 
-        LinkedList<Vehicle> collisions = new LinkedList<Vehicle>();
+        LinkedList<Vehicle> collisions = new LinkedList<>();
         Vehicle clone = vehiculo.clone();
         if (clone.isHorizontal()) {
             while (clone.posX < 6) {
