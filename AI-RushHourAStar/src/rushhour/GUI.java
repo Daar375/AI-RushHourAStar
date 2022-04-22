@@ -145,22 +145,33 @@ private Graphics tableGraphics;
         Parser parse = new Parser();
         String caso1 = "..\\Casos\\casoFacil1.csv";
         String caso2 = "..\\Casos\\casoFacil2.csv";
+        String caso3 = "..\\Casos\\casoInter3.csv";
+        String caso4 = "..\\Casos\\casoInter4.csv";
+        String caso5 = "..\\Casos\\casoDificil5.csv";
+        String caso6 = "..\\Casos\\casoDificil6.csv";
         int exit[];
         
-        LinkedList carList = parse.parseFile(caso2); 
-        exit = parse.parseExit(caso2);
+        
+        LinkedList carList = parse.parseFile(caso6); 
+        exit = parse.parseExit(caso6);
         
         Puzzle initialPuzzle = new Puzzle(6,carList,exit[0],exit[1],0);
-
-        DrawGame(initialPuzzle);
-        Astar game = new Astar();
-        DrawGameSequence(game.searchAStar(initialPuzzle));
+        
+        if(exit[0] == 5){
+            DrawGame(initialPuzzle, exit[0]+1, exit[1]);
+            Astar game = new Astar();
+            DrawGameSequence(game.searchAStar(initialPuzzle), exit[0]+1, exit[1]);
+        } else{
+            DrawGame(initialPuzzle, exit[0], exit[1]+1);
+            Astar game = new Astar();
+            DrawGameSequence(game.searchAStar(initialPuzzle), exit[0], exit[1]+1);
+        }
     
     }//GEN-LAST:event_StartButtonActionPerformed
-    public void DrawGameSequence(ArrayList<Puzzle> squence){
+    public void DrawGameSequence(ArrayList<Puzzle> squence, int exitx, int exity){
         for (Puzzle puzzle : squence){
             try {
-                DrawGame(puzzle); 
+                DrawGame(puzzle, exitx, exity); 
                 puzzle.printMatrix(puzzle.getMatrix());
                 TimeUnit.MILLISECONDS.sleep(300);
             } catch (InterruptedException ex) {
@@ -170,7 +181,7 @@ private Graphics tableGraphics;
         System.out.println("Moves: " + squence.size());
 
     }
-    public void DrawGame(Puzzle puzzle){
+    public void DrawGame(Puzzle puzzle,int exitx, int exity){
         
         
 
@@ -179,15 +190,15 @@ private Graphics tableGraphics;
         int x = 0;
         
         while (y!=6){
-           tableGraphics.setColor(Color.DARK_GRAY);
+            tableGraphics.setColor(Color.DARK_GRAY);
 
-            if(y==2){
+            /*if(y==2){
               tableGraphics.fillRect(63,12+(95*y),665,97);  
+*/
+            //}else{
+            tableGraphics.fillRect(63,12+(95*y),660-90,95);  
 
-            }else{
-                tableGraphics.fillRect(63,12+(95*y),660-90,95);  
-
-            }
+            //}
             y++;
         }
         y = 0;
@@ -214,10 +225,10 @@ private Graphics tableGraphics;
         
         tableGraphics.setColor(Color.gray);
 
-        tableGraphics.fillRect(65+(95*6),15+(95*2),90,90);  
+        tableGraphics.fillRect(65+(95*exitx),15+(95*exity),90,90);  
         tableGraphics.setColor(Color.green);
 
-        tableGraphics.fillRect(70+(95*6),20+(95*2),80,80);  
+        tableGraphics.fillRect(70+(95*exitx),20+(95*exity),80,80);  
         
         
         for( Vehicle car : puzzle.cars){
@@ -227,8 +238,6 @@ private Graphics tableGraphics;
             }else
             PaintCar(Color.BLUE,car.posX,car.posY,car.size,car.isHorizontal());
         }
-        //PaintCar(Color.RED,3,3,2, true);
-        //PaintCar(Color.RED,3,3,2, true);
 
     }
     
