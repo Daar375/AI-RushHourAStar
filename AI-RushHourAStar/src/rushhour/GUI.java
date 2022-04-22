@@ -222,7 +222,7 @@ public static String getFileExtension(String fullName) {
     public void DrawGame(Puzzle puzzle,int exitx, int exity){
         
         
-
+tableGraphics.clearRect(0, 0, 1080, 1080);
 
         int y = 0;
         int x = 0;
